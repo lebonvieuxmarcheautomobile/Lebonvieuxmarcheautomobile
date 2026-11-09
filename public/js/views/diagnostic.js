@@ -5,6 +5,15 @@ import { BleTransport, SerialTransport, SimulatedTransport, capabilities } from 
 import { describeDtc } from '../data/dtc-codes.js';
 import { store } from '../lib/store.js';
 
+const UA = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+const isAndroid = () => /Android/i.test(UA);
+const isIOS = () => /iPhone|iPad|iPod/i.test(UA) || (/Macintosh/.test(UA) && typeof navigator !== 'undefined' && navigator.maxTouchPoints > 1);
+/** Lien Android qui rouvre la page actuelle dans Chrome. */
+export const chromeIntentUrl = (href = location.href) => {
+  const u = new URL(href);
+  return `intent://${u.host}${u.pathname}${u.search}${u.hash}#Intent;scheme=${u.protocol.replace(':', '')};package=com.android.chrome;end`;
+};
+
 const LIVE_PIDS = ['0C', '0D', '05', '04', '11', '0F', '2F', '0B', '06', '07'];
 const SEVERITY = {
   1: ['À surveiller', 'ok'],
@@ -47,7 +56,14 @@ export function render(el) {
                   <button class="btn ghost" data-act="sim">Mode démo</button>
                 </div>
                 ${!caps.ble
-                  ? html`<p class="notice">Ce navigateur ne gère pas le Bluetooth web. Sur Android, ordinateur ou ChromeOS, utilisez <strong>Chrome</strong> ou <strong>Edge</strong>. Sur iPhone, utilisez un navigateur compatible Web Bluetooth (ex. Bluefy).</p>`
+                  ? isIOS()
+                    ? html`<div class="notice"><p><strong>Bluetooth indisponible sur iPhone et iPad.</strong> Apple ne le permet dans aucun navigateur, Google Chrome compris : la connexion à l’adaptateur OBD n’est pas possible sur cet appareil. Utilisez un téléphone Android ou un ordinateur avec Chrome. Le mode démo reste disponible.</p></div>`
+                    : html`<div class="notice">
+                        <p><strong>Ouvrez AUTOnomie dans Google Chrome</strong> pour connecter l’adaptateur en Bluetooth (Android, ordinateur Windows, Mac ou Chromebook).</p>
+                        ${isAndroid()
+                          ? html`<a class="btn primary" href="${chromeIntentUrl()}">Ouvrir dans Chrome</a>`
+                          : html`<a class="btn" href="https://www.google.com/chrome/" target="_blank" rel="noopener">Télécharger Chrome ↗</a>`}
+                      </div>`
                   : ''}
                 <details>
                   <summary>Quel adaptateur acheter ?</summary>
