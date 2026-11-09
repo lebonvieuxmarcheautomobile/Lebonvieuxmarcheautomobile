@@ -1,9 +1,9 @@
-# Publie l'application (dossier public/) sur GitHub Pages à chaque mise à jour de main.
+# Publie l'application (dossier public/) sur GitHub Pages.
+# Mise en ligne volontairement MANUELLE : onglet Actions → « Déployer l'application » →
+# « Run workflow » (après avoir choisi Settings → Pages → Source : GitHub Actions).
 name: Déployer l'application
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
