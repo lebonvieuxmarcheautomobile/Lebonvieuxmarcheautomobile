@@ -157,3 +157,28 @@ test('plaque extraite d’un texte partagé (Immat Scanner…)', () => {
   assert.equal(extractPlate('Version 2.5.1 sans plaque'), null);
   assert.equal(extractPlate('AO-123-CD'), null); // lettre interdite
 });
+
+test('base de défauts : intégrité', () => {
+  const ids = KNOWN_DEFECTS.map((d) => d.id);
+  assert.equal(new Set(ids).size, ids.length, 'identifiants uniques');
+  for (const d of KNOWN_DEFECTS) {
+    assert.ok(['critique', 'elevee', 'moyenne', 'faible'].includes(d.severity), d.id);
+    assert.ok(d.symptoms.length && d.checks.length && d.component, d.id);
+    if (d.years) assert.ok(d.years[0] <= d.years[1], d.id);
+    assert.ok(d.models?.length || d.keywords?.length, `${d.id} : trop large sans modèle ni mot-clé`);
+  }
+  const tIds = TUTORIALS.map((t) => t.id);
+  assert.equal(new Set(tIds).size, tIds.length, 'tutos uniques');
+});
+
+test('nouveaux défauts : moteurs partagés et marques', () => {
+  const ids = (v) => matchDefects(v, KNOWN_DEFECTS).map((m) => m.defect.id);
+  assert.ok(ids({ brand: 'Ford', model: 'Focus', engine: '1.6 TDCi 110', year: 2008 }).includes('psa-dv6-hdi'));
+  assert.ok(ids({ brand: 'Peugeot', model: '307', engine: '1.6 HDi 110 FAP', year: 2006 }).includes('psa-fap-additif'));
+  assert.ok(ids({ brand: 'Toyota', model: 'Avensis', engine: '2.2 D-4D 150', year: 2008 }).includes('toyota-ad-d4d'));
+  assert.ok(ids({ brand: 'BMW', model: '320i', engine: 'N20', year: 2013 }).includes('bmw-n13-n20'));
+  assert.ok(ids({ brand: 'Fiat', model: '500', engine: '1.2 69', gearbox: 'Dualogic', year: 2012 }).includes('fiat-dualogic'));
+  assert.ok(ids({ brand: 'Nissan', model: 'Leaf', year: 2013 }).includes('nissan-leaf-battery'));
+  // Pas de faux positif : Ford 1.6 essence Duratec
+  assert.ok(!ids({ brand: 'Ford', model: 'Focus', engine: '1.6 Duratec 100', year: 2008 }).includes('psa-dv6-hdi'));
+});
