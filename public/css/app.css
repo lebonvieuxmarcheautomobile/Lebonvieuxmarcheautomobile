@@ -128,7 +128,6 @@ small, .small { font-size: .9rem; }
 svg.i { flex: none; vertical-align: middle; }
 
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
-main:focus, main:focus-visible { outline: none; }
 .skip { position: absolute; left: -999px; top: 8px; z-index: 99; background: var(--surface); color: var(--text); padding: 10px 14px; border-radius: 10px; }
 .skip:focus { left: 8px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -442,9 +441,6 @@ dialog.confirm p { font-size: 1.05rem; }
 .tuto-grid li { margin: 0; }
 .tuto { display: grid; gap: 8px; height: 100%; margin: 0; }
 .tuto strong { font: 700 1.02rem/1.3 var(--font-display); }
-.tuto { padding-top: 12px; }
-.tuto-thumb { display: block; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); margin-bottom: 4px; }
-.tuto-thumb .scene-svg { pointer-events: none; }
 .meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--muted); font-size: .92rem; margin: 0; }
 .meta span { display: inline-flex; align-items: center; gap: 6px; }
 .difficulty { display: inline-flex; gap: 6px; align-items: center; }
@@ -493,80 +489,6 @@ dialog.confirm p { font-size: 1.05rem; }
 .hv-frame-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
 .hv-frame { display: block; width: 100%; height: min(78vh, 900px); border: 0; background: #fff; }
 .hv-help { margin-top: 10px; }
-
-/* ——— Tuto animé (schémas techniques) ——— */
-:root { --sk-line: #1d2836; --sk-metal: #c9d3de; --sk-dark: #2b3645; --sk-rubber: #1a1f27; --sk-body: #3b4b5e; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { --sk-line: #0a0f16; --sk-metal: #8d9cad; --sk-dark: #243143; --sk-rubber: #0b0f15; --sk-body: #2c3b4f; } }
-:root[data-theme='dark'] { --sk-line: #0a0f16; --sk-metal: #8d9cad; --sk-dark: #243143; --sk-rubber: #0b0f15; --sk-body: #2c3b4f; }
-.stage { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); }
-.scene-svg { display: block; width: 100%; height: auto; }
-.scene-svg .bg { fill: var(--surface-2); stroke: none; }
-.scene-svg rect, .scene-svg circle, .scene-svg path, .scene-svg ellipse { stroke: var(--sk-line); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.scene-svg .bg { stroke: none; }
-.scene-svg .body { fill: var(--sk-body); }
-.scene-svg .glass { fill: color-mix(in srgb, var(--brand) 22%, var(--surface)); }
-.scene-svg .ground { fill: none; stroke: var(--muted); stroke-dasharray: 6 6; }
-.scene-svg .f-metal { fill: var(--sk-metal); } .scene-svg .f-dark { fill: var(--sk-dark); } .scene-svg .f-rubber { fill: var(--sk-rubber); }
-.scene-svg .f-red { fill: #d33a2c; } .scene-svg .f-blue { fill: #2f7fd1; } .scene-svg .f-yellow { fill: #f4c430; } .scene-svg .f-white { fill: var(--surface); }
-.scene-svg .f-oil { fill: #b8860b; } .scene-svg .f-accent { fill: var(--accent); } .scene-svg .f-pad { fill: #8a6d4b; } .scene-svg .f-brake { fill: #f3e3a2; }
-.scene-svg .f-cool-tank { fill: #f7c6d9; } .scene-svg .f-filter { fill: #f1e7c8; } .scene-svg .f-glass { fill: rgb(160 200 230 / 45%); } .scene-svg .f-skin { fill: #d9a77f; } .scene-svg .f-amber { fill: #f39c12; }
-.scene-svg .thin { fill: none; stroke-width: 1.5; } .scene-svg .thick { fill: none; stroke-width: 6; } .scene-svg .wire { fill: none; stroke-width: 5; }
-.scene-svg .tube { fill: none; stroke: #7f8c9b; stroke-width: 8; } .scene-svg .cool-tube { stroke: #e48bb0; } .scene-svg .fuel-tube { stroke: #c49a3a; }
-.scene-svg .cable { fill: none; stroke-width: 7; } .scene-svg .red-cable { stroke: #d33a2c; } .scene-svg .black-cable { stroke: #111; }
-.scene-svg .belt { fill: none; stroke: var(--sk-rubber); stroke-width: 10; } .scene-svg .chain { fill: none; stroke: #9aa5b1; stroke-width: 6; stroke-dasharray: 8 5; }
-.scene-svg .blade { fill: none; stroke: var(--sk-rubber); stroke-width: 8; }
-.scene-svg .seal, .scene-svg .seal-rect { fill: none; stroke: var(--accent); stroke-width: 4; }
-.scene-svg .groove { fill: none; stroke: var(--sk-metal); stroke-width: 8; } .scene-svg .disc-ring { fill: none; stroke-dasharray: 3 6; }
-.scene-svg .wheel-ring { fill: none; stroke: var(--sk-metal); stroke-width: 18; }
-.scene-svg .flowline { fill: none; stroke: var(--brand); stroke-width: 4; stroke-dasharray: 10 8; }
-.scene-svg .arrow { fill: none; stroke: var(--brand); stroke-width: 4; } .scene-svg .ah { fill: var(--brand); stroke: none; }
-.scene-svg .warn-light { stroke: #f4c430; stroke-width: 6; } .scene-svg .accent-stroke { stroke: var(--accent); } .scene-svg .bad-stroke { stroke: var(--bad); } .scene-svg .inv-stroke { stroke: #fff; }
-.scene-svg .lampglow { filter: drop-shadow(0 0 6px #f4c430); }
-.scene-svg .lbl { fill: var(--text); stroke: none; font: 600 15px var(--font-body); }
-.scene-svg .lbl.mid { text-anchor: middle; } .scene-svg .lbl.small { font-size: 13px; } .scene-svg .lbl.big { font-size: 22px; font-weight: 800; }
-.scene-svg .lbl.inv { fill: #fff; } .scene-svg .lbl.ink { fill: #0e1726; }
-
-/* Mise en évidence et animations par étape */
-.scene-svg .p { transition: opacity .35s; transform-box: fill-box; transform-origin: center; }
-.scene-svg.has-focus [data-part]:not(.focus):not(:has(.focus)) { opacity: .28; }
-.scene-svg.has-focus .focus [data-part] { opacity: 1; }
-.scene-svg .focus { filter: drop-shadow(0 0 5px var(--accent)) drop-shadow(0 0 2px var(--accent)); }
-.scene-svg .a-ccw { animation: sk-ccw 1.8s ease-in-out infinite; } .scene-svg .a-cw { animation: sk-cw 1.8s ease-in-out infinite; }
-.scene-svg .a-spin { animation: sk-cw 2.4s linear infinite; }
-.scene-svg .a-up { animation: sk-up 1.6s ease-in-out infinite alternate; } .scene-svg .a-down { animation: sk-down 1.6s ease-in-out infinite alternate; }
-.scene-svg .a-left { animation: sk-left 1.6s ease-in-out infinite alternate; } .scene-svg .a-right { animation: sk-right 1.6s ease-in-out infinite alternate; }
-.scene-svg .a-out { animation: sk-out 2s ease-in-out infinite; } .scene-svg .a-in { animation: sk-out 2s ease-in-out infinite reverse; }
-.scene-svg .a-blink { animation: sk-blink 1s steps(2, jump-none) infinite; }
-.scene-svg .a-press { animation: sk-press 1.2s ease-in-out infinite; }
-.scene-svg .a-swing { animation: sk-swing 2.2s ease-in-out infinite alternate; }
-.scene-svg .a-flow path, .scene-svg path.a-flow, .scene-svg .a-flow circle { stroke-dasharray: 12 9; animation: sk-dash .9s linear infinite; }
-.scene-svg .drop { opacity: .25; }
-.scene-svg .a-drip .drop { opacity: 1; animation: sk-drip 1.2s ease-in infinite; }
-.scene-svg .a-drip .d1 { animation-delay: .4s; } .scene-svg .a-drip .d2 { animation-delay: .8s; }
-@keyframes sk-ccw { 0%, 15% { transform: rotate(0); } 85%, 100% { transform: rotate(-150deg); } }
-@keyframes sk-cw { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-@keyframes sk-up { from { transform: translateY(0); } to { transform: translateY(-16px); } }
-@keyframes sk-down { from { transform: translateY(0); } to { transform: translateY(16px); } }
-@keyframes sk-left { from { transform: translateX(0); } to { transform: translateX(-18px); } }
-@keyframes sk-right { from { transform: translateX(0); } to { transform: translateX(18px); } }
-@keyframes sk-out { 0%, 20% { transform: translate(0, 0); opacity: 1; } 80%, 100% { transform: translate(26px, -22px); opacity: .35; } }
-@keyframes sk-blink { 50% { opacity: .3; } }
-@keyframes sk-press { 50% { transform: scale(.88); } }
-@keyframes sk-swing { from { transform: rotate(0); } to { transform: rotate(-16deg); } }
-@keyframes sk-dash { to { stroke-dashoffset: -21; } }
-@keyframes sk-drip { from { transform: translateY(0); opacity: 1; } to { transform: translateY(46px); opacity: 0; } }
-
-.player-progress { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 4px; }
-.pdot { width: 30px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: var(--line); cursor: pointer; }
-.pdot.done { background: color-mix(in srgb, var(--brand) 45%, var(--line)); }
-.pdot.on { background: var(--accent); }
-.pdot::before { content: ''; display: block; margin: -20px 0; height: 48px; }
-.caption { min-height: 3.2em; margin: 8px 0; }
-.cap-num { color: var(--brand); }
-.player-ctrl { display: flex; gap: 10px; }
-.player-ctrl .btn.brand { flex: 1; }
-.flip svg { transform: scaleX(-1); }
-.steps li.current { background: var(--brand-soft); margin: 0 -10px; padding-left: 10px; padding-right: 10px; border-radius: 10px; border-top-color: transparent; }
 
 /* ——— Notification ——— */
 #toast {

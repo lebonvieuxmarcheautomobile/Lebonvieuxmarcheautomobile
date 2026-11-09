@@ -1,7 +1,5 @@
 import { html, raw, mount, $ } from '../lib/dom.js';
 import { icon } from '../lib/icons.js';
-import { playerMarkup, attachPlayer } from '../lib/scene-player.js';
-import { sceneSvg } from '../data/scenes.js';
 import { store } from '../lib/store.js';
 import { CATALOGUE, shopSearchUrl } from '../data/catalogue.js';
 import { TUTORIALS, DIFFICULTY_LABEL } from '../data/tutorials.js';
@@ -34,8 +32,6 @@ function tutoView(el, t) {
 
       ${t.safety.length ? html`<section class="notice warn"><strong>Sécurité</strong><ul>${t.safety.map((s) => html`<li>${s}</li>`)}</ul></section>` : ''}
 
-      ${playerMarkup(t)}
-
       <section class="card">
         <h2>Pièces</h2>
         <ul class="list">
@@ -64,7 +60,6 @@ function tutoView(el, t) {
       <p class="fineprint">Travaux réalisés sous votre responsabilité. Respectez les couples de serrage du constructeur ; en cas de doute sur un organe de sécurité (freins, direction), faites contrôler par un professionnel.</p>
     `,
   );
-  return attachPlayer(el, t);
 }
 
 function mainView(el, tab, filter = '') {
@@ -120,7 +115,6 @@ function mainView(el, tab, filter = '') {
         : html`<ul class="tuto-grid">
             ${TUTORIALS.filter((t) => matches(`${t.title} ${t.steps.join(' ')}`)).map(
               (t) => html`<li><a class="card tuto" href="#atelier-tuto-${t.id}">
-                ${sceneSvg(t.id) ? html`<span class="tuto-thumb" aria-hidden="true">${raw(sceneSvg(t.id))}</span>` : ''}
                 <strong>${t.title}</strong>
                 ${meta(t)}
               </a></li>`,
@@ -140,7 +134,8 @@ export function render(el, params) {
       location.hash = '#atelier-tutos';
       return;
     }
-    return tutoView(el, t);
+    tutoView(el, t);
+    return;
   }
   const tab = sub === 'tutos' ? 'tutos' : 'catalogue';
   let filter = '';
