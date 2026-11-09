@@ -1,4 +1,4 @@
-import { html, mount, toast } from '../lib/dom.js';
+import { html, mount, toast, ask, isEmbedded } from '../lib/dom.js';
 import { store } from '../lib/store.js';
 import { DEFAULT_SHOP_URL } from '../data/catalogue.js';
 
@@ -15,8 +15,9 @@ export function render(el) {
         <section class="card">
           <h2>Sauvegarde du carnet</h2>
           <p>Vos véhicules et interventions sont enregistrés uniquement sur cet appareil. Exportez-les régulièrement ou pour les transférer sur un autre téléphone.</p>
+          ${isEmbedded ? html`<p class="notice">L’export de fichier n’est pas disponible dans cet aperçu : ouvrez l’application installée pour exporter.</p>` : ''}
           <div class="actions">
-            <button class="btn primary" data-act="export">Exporter (.json)</button>
+            ${isEmbedded ? '' : html`<button class="btn primary" data-act="export">Exporter (.json)</button>`}
             <label class="btn">Importer<input type="file" accept="application/json,.json" id="import" hidden /></label>
           </div>
         </section>
@@ -55,7 +56,7 @@ export function render(el) {
     .then((info) => info && el.isConnected && draw(info))
     .catch(() => {});
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
     const act = e.target.closest('[data-act]')?.dataset.act;
     if (act === 'export') {
       const blob = new Blob([JSON.stringify(store.exportAll(), null, 2)], { type: 'application/json' });
@@ -70,7 +71,7 @@ export function render(el) {
       draw();
       toast('Adresse réinitialisée');
     }
-    if (act === 'wipe' && confirm('Effacer définitivement véhicules, historique et check-list ?')) {
+    if (act === 'wipe' && (await ask('Effacer définitivement véhicules, historique et check-list ?', { ok: 'Tout effacer' }))) {
       Object.keys(localStorage)
         .filter((k) => k.startsWith('lbvma:'))
         .forEach((k) => localStorage.removeItem(k));
@@ -83,7 +84,7 @@ export function render(el) {
     if (e.target.id !== 'import' || !e.target.files[0]) return;
     try {
       const data = JSON.parse(await e.target.files[0].text());
-      if (!confirm('Remplacer le carnet actuel par cette sauvegarde ?')) return;
+      if (!(await ask('Remplacer le carnet actuel par cette sauvegarde ?', { ok: 'Remplacer' }))) return;
       store.importAll(data);
       toast('Sauvegarde importée');
     } catch (err) {

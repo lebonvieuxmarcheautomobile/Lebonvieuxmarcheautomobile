@@ -22,7 +22,7 @@ function tutoView(el, t) {
     el,
     html`
       <header class="page-head">
-        <a href="#/atelier/tutos" class="link">← Tous les tutos</a>
+        <a href="#atelier-tutos" class="link">← Tous les tutos</a>
         <h1>${t.title}</h1>
         <p>${stars(t.difficulty)} · ⏱ ${t.duration}</p>
       </header>
@@ -52,7 +52,7 @@ function tutoView(el, t) {
 
       <div class="actions">
         <a class="btn ghost" href="https://www.youtube.com/results?search_query=${encodeURIComponent(`${t.title} ${v ? `${v.brand} ${v.model}` : ''}`)}" ${EXT}>Voir des vidéos ↗</a>
-        <a class="btn primary" href="#/carnet${v ? `/${v.id}` : ''}">Noter dans le carnet</a>
+        <a class="btn primary" href="#carnet${v ? `-${v.id}` : ''}">Noter dans le carnet</a>
       </div>
       <p class="fineprint">Travaux réalisés sous votre responsabilité. Respectez les couples de serrage du constructeur ; en cas de doute sur un organe de sécurité (freins, direction), faites contrôler par un professionnel.</p>
     `,
@@ -75,8 +75,8 @@ function mainView(el, tab, filter = '') {
       </header>
 
       <div class="tabs" role="tablist">
-        <a role="tab" href="#/atelier" aria-selected="${tab === 'catalogue'}">Catalogue</a>
-        <a role="tab" href="#/atelier/tutos" aria-selected="${tab === 'tutos'}">Tutos montage</a>
+        <a role="tab" href="#atelier" aria-selected="${tab === 'catalogue'}">Catalogue</a>
+        <a role="tab" href="#atelier-tutos" aria-selected="${tab === 'tutos'}">Tutos montage</a>
       </div>
 
       <section class="card toolbar">
@@ -101,7 +101,7 @@ function mainView(el, tab, filter = '') {
                     <div>
                       <strong>${i.name}</strong>
                       <p class="small muted">${i.tip}</p>
-                      ${i.tutos.length ? html`<p class="small">${i.tutos.map((tid) => html`<a class="link" href="#/atelier/tuto/${tid}">🔧 ${tutoById[tid]?.title}</a> `)}</p>` : ''}
+                      ${i.tutos.length ? html`<p class="small">${i.tutos.map((tid) => html`<a class="link" href="#atelier-tuto-${tid}">🔧 ${tutoById[tid]?.title}</a> `)}</p>` : ''}
                     </div>
                     <a class="btn small" href="${shopSearchUrl(template, i.query, v)}" ${EXT}>Voir chez Carter-Cash ↗</a>
                   </li>`,
@@ -111,7 +111,7 @@ function mainView(el, tab, filter = '') {
           })
         : html`<ul class="tuto-grid">
             ${TUTORIALS.filter((t) => matches(`${t.title} ${t.steps.join(' ')}`)).map(
-              (t) => html`<li><a class="card tuto" href="#/atelier/tuto/${t.id}">
+              (t) => html`<li><a class="card tuto" href="#atelier-tuto-${t.id}">
                 <strong>${t.title}</strong>
                 <span class="small">${stars(t.difficulty)}</span>
                 <span class="small muted">⏱ ${t.duration}</span>
@@ -129,7 +129,7 @@ export function render(el, params) {
   if (sub === 'tuto') {
     const t = tutoById[id];
     if (!t) {
-      location.hash = '#/atelier/tutos';
+      location.hash = '#atelier-tutos';
       return;
     }
     tutoView(el, t);

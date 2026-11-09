@@ -1,4 +1,4 @@
-import { html, mount, $, formData, toast, uid, fmtDate, fmtKm, fmtEur } from '../lib/dom.js';
+import { html, mount, $, formData, toast, uid, fmtDate, fmtKm, fmtEur, ask } from '../lib/dom.js';
 import { store } from '../lib/store.js';
 import { nextTechnicalInspection, serviceReminders, totalCost, toIsoDate } from '../lib/maintenance.js';
 
@@ -123,7 +123,7 @@ function listView(el) {
             ${vehicles.map((v) => {
               const entries = store.entries(v.id);
               const ct = nextTechnicalInspection(v, entries.filter((e) => e.type === 'ct').map((e) => e.ct));
-              return html`<li><a class="card vehicle" href="#/carnet/${v.id}">
+              return html`<li><a class="card vehicle" href="#carnet-${v.id}">
                 <strong>${v.name || `${v.brand} ${v.model}`}</strong>
                 <span class="muted">${v.plate || ''} ${v.mileage ? `· ${fmtKm(v.mileage)}` : ''}</span>
                 <span><span class="pill ${ct.status}">${ct.label || 'CT'} : ${ct.due ? fmtDate(ct.due) : STATUS_LABEL[ct.status]}</span></span>
@@ -133,7 +133,7 @@ function listView(el) {
         : html`<section class="card empty"><p>Aucun véhicule. Ajoutez-en un, ou recherchez-le par sa plaque puis « + Carnet ».</p></section>`}
       <div class="actions">
         <button class="btn primary" data-act="new-vehicle">+ Ajouter un véhicule</button>
-        <a class="btn ghost" href="#/vehicule">Rechercher par plaque</a>
+        <a class="btn ghost" href="#vehicule">Rechercher par plaque</a>
       </div>
     `,
   );
@@ -149,7 +149,7 @@ function detailView(el, v) {
     el,
     html`
       <header class="page-head">
-        <a href="#/carnet" class="link">← Mes véhicules</a>
+        <a href="#carnet" class="link">← Mes véhicules</a>
         <div class="result-head">
           <div>
             <h1>${v.name || `${v.brand} ${v.model}`}</h1>
@@ -204,7 +204,7 @@ function detailView(el, v) {
       </section>
 
       <div class="actions">
-        <a class="btn ghost" href="#/atelier">Pièces & tutos</a>
+        <a class="btn ghost" href="#atelier">Pièces & tutos</a>
         <button class="btn danger ghost" data-act="delete-vehicle">Supprimer ce véhicule</button>
       </div>
     `,
@@ -217,7 +217,7 @@ export function render(el, [id]) {
   const draw = () => {
     const v = id && store.vehicles().find((x) => x.id === id);
     if (id && !v) {
-      location.hash = '#/carnet';
+      location.hash = '#carnet';
       return;
     }
     if (v) detailView(el, v);
@@ -245,7 +245,7 @@ export function render(el, [id]) {
     return v;
   };
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
     const act = e.target.closest('[data-act]')?.dataset.act;
     const entryId = e.target.closest('[data-entry]')?.dataset.entry;
     const v = id && store.vehicles().find((x) => x.id === id);
@@ -255,24 +255,24 @@ export function render(el, [id]) {
         if (rv !== 'save') return;
         const saved = saveVehicle(formData(form), act === 'edit-vehicle' ? v : undefined);
         toast('Véhicule enregistré');
-        if (act === 'new-vehicle') location.hash = `#/carnet/${saved.id}`;
+        if (act === 'new-vehicle') location.hash = `#carnet-${saved.id}`;
         else draw();
       });
     }
 
-    if (act === 'delete-vehicle' && v && confirm(`Supprimer « ${v.name || v.model} » et tout son historique ?`)) {
+    if (act === 'delete-vehicle' && v && (await ask(`Supprimer « ${v.name || v.model} » et tout son historique ?`, { ok: 'Supprimer' }))) {
       store.saveVehicles(store.vehicles().filter((x) => x.id !== v.id));
       store.saveEntries(store.allEntries().filter((x) => x.vehicleId !== v.id));
       toast('Véhicule supprimé');
-      location.hash = '#/carnet';
+      location.hash = '#carnet';
     }
 
     if ((act === 'new-entry' || entryId) && v) {
       const existing = entryId ? store.allEntries().find((x) => x.id === entryId) : undefined;
-      openDialog(entryForm(v, existing), (rv, form) => {
+      openDialog(entryForm(v, existing), async (rv, form) => {
         let all = store.allEntries();
         if (rv === 'delete' && existing) {
-          if (!confirm('Supprimer cette intervention ?')) return;
+          if (!(await ask('Supprimer cette intervention ?', { ok: 'Supprimer' }))) return;
           store.saveEntries(all.filter((x) => x.id !== existing.id));
           toast('Intervention supprimée');
           return draw();

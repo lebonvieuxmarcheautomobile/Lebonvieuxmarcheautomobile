@@ -1,4 +1,4 @@
-import { html, mount, $, toast } from '../lib/dom.js';
+import { html, mount, $, toast, ask } from '../lib/dom.js';
 import { Elm327, PIDS } from '../lib/obd/elm327.js';
 import { BleTransport, SerialTransport, SimulatedTransport, capabilities } from '../lib/obd/transports.js';
 import { describeDtc } from '../data/dtc-codes.js';
@@ -175,7 +175,7 @@ export function render(el) {
           <li><strong>Moniteurs :</strong> ${status ? `${status.monitors.length - status.notReady}/${status.monitors.length} prêts` : 'non lus'}
             ${status?.notReady ? html`<br /><small>Non prêts : ${status.monitors.filter((m) => !m.ready).map((m) => m.name).join(', ')}</small>` : ''}</li>
           <li><strong>Distance depuis effacement :</strong> ${dist !== null ? `${dist} km` : 'non supporté'}${mins !== null ? ` · ${Math.round(mins / 60)} h moteur` : ''}</li>
-          <li><strong>VIN (OBD) :</strong> ${vin || 'non disponible'} ${vin ? html`<a class="link" href="#/vehicule">Rechercher →</a>` : ''}</li>
+          <li><strong>VIN (OBD) :</strong> ${vin || 'non disponible'} ${vin ? html`<a class="link" href="#vehicule">Rechercher →</a>` : ''}</li>
         </ul>
         ${warnings.length
           ? html`<div class="notice warn"><strong>Points d’attention</strong><ul>${warnings.map((w) => html`<li>${w}</li>`)}</ul></div>`
@@ -233,7 +233,7 @@ export function render(el) {
       if (act === 'dtc') await readDtcs();
       if (act === 'precheck') await preCheck();
       if (act === 'clear') {
-        if (!confirm('Effacer les codes éteint le voyant mais ne répare rien. Le défaut reviendra s’il est toujours présent. Moteur arrêté, contact mis. Continuer ?')) return;
+        if (!(await ask('Effacer les codes éteint le voyant mais ne répare rien : le défaut reviendra s’il est toujours présent. Moteur arrêté, contact mis.', { ok: 'Effacer les codes' }))) return;
         toast((await session.elm.clearDtcs()) ? 'Codes effacés' : 'Effacement refusé par le véhicule', 'info');
         await readDtcs();
       }

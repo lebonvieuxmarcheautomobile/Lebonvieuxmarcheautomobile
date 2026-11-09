@@ -160,8 +160,8 @@ export function render(el) {
         </div>
         <dl class="specs">${specRows(v).map(([k, val]) => html`<div><dt>${k}</dt><dd>${val}</dd></div>`)}</dl>
         <div class="actions">
-          <a class="btn ghost" href="#/atelier">Pièces pour ce véhicule</a>
-          <a class="btn ghost" href="#/achat">Check-list d’achat</a>
+          <a class="btn ghost" href="#atelier">Pièces pour ce véhicule</a>
+          <a class="btn ghost" href="#achat">Check-list d’achat</a>
         </div>
       </section>
 
@@ -304,7 +304,7 @@ export function render(el) {
       });
       store.saveVehicles(vehicles);
       toast('Ajouté au carnet');
-      location.hash = `#/carnet/${id}`;
+      location.hash = `#carnet-${id}`;
     }
   };
 
