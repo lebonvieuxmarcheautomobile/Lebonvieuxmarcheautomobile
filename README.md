@@ -8,7 +8,7 @@ Application web (installable sur mobile, fonctionne hors connexion) pour les par
 | **Plaque** | Immatriculation → caractéristiques **techniques** du véhicule (jamais le propriétaire), **campagnes de rappel** (open data RappelConso) et **défauts connus** du moteur / de la boîte / du modèle. Identification de secours par VIN ou saisie manuelle. |
 | **OBD** | Diagnostic léger avec un adaptateur ELM327 à ~20 € : lecture/effacement des codes défaut (avec explications en français), données moteur en temps réel, **contrôle avant achat** (codes effacés récemment, moniteurs antipollution, VIN). Mode démo intégré. |
 | **Carnet** | Carnet d'entretien multi-véhicules : interventions, coûts, contrôles techniques (contre-visites incluses), échéances calculées (CT, vidange, distribution, liquide de frein). Export/import JSON. |
-| **Pièces** | Catalogue de pièces par famille avec conseils de choix et liens de recherche vers Carter-Cash (filtrés sur votre véhicule), et **tutos de montage** pas à pas (vidange, plaquettes, batterie, ampoules, filtres, bougies, roue…). |
+| **Pièces** | Catalogue de pièces par famille avec conseils de choix et liens de recherche vers Carter-Cash (filtrés sur votre véhicule), et **tutos de montage** pas à pas, chacun avec un **schéma technique animé** étape par étape (vidange, plaquettes, batterie, ampoules, filtres, bougies, roue…). |
 
 ## Utilisation avec Immat Scanner
 
