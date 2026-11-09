@@ -188,3 +188,8 @@ test('chaque tuto renvoie vers un guide professionnel', () => {
     assert.ok(t.guide && /^https:\/\/www\.(carter-cash|mister-auto)\.com\//.test(t.guide.url) && t.guide.title && t.guide.source, t.id);
   }
 });
+
+test('chaque tuto a sa photo professionnelle', async () => {
+  const { existsSync } = await import('node:fs');
+  for (const t of TUTORIALS) assert.ok(existsSync(new URL(`../public/assets/tutos/${t.id}.jpg`, import.meta.url)), t.id);
+});
