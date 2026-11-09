@@ -4,7 +4,7 @@ Application web (installable sur mobile, fonctionne hors connexion) pour les par
 
 | Onglet | Ce qu'il fait |
 | --- | --- |
-| **Achat** | Check-list complète pour acheter une occasion : préparation, HistoVec, documents, carrosserie, moteur à froid, essai, contrôle OBD, paiement sécurisé, formalités ANTS. Progression sauvegardée et imprimable. |
+| **Achat** | Check-list complète pour acheter une occasion (préparation, documents, carrosserie, moteur à froid, essai, OBD, paiement, formalités ANTS), fiche **HistoVec** à reporter, et **note du véhicule sur 20** calculée automatiquement : fiabilité, rapport qualité-prix et verdict (bonne affaire, à négocier, à éviter…), avec le détail des points perdus et des arguments de négociation. |
 | **Plaque** | Immatriculation → caractéristiques **techniques** du véhicule (jamais le propriétaire), **campagnes de rappel** (open data RappelConso) et **défauts connus** du moteur / de la boîte / du modèle. Identification de secours par VIN ou saisie manuelle. |
 | **OBD** | Diagnostic léger avec un adaptateur ELM327 à ~20 € : lecture/effacement des codes défaut (avec explications en français), données moteur en temps réel, **contrôle avant achat** (codes effacés récemment, moniteurs antipollution, VIN). Mode démo intégré. |
 | **Carnet** | Carnet d'entretien multi-véhicules : interventions, coûts, contrôles techniques (contre-visites incluses), échéances calculées (CT, vidange, distribution, liquide de frein). Export/import JSON. |
