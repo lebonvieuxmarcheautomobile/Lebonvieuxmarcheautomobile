@@ -1,4 +1,5 @@
 import { $, $$, html, mount } from './lib/dom.js';
+import { parseHash } from './lib/router.js';
 import * as home from './views/home.js';
 import * as buying from './views/buying.js';
 import * as vehicle from './views/vehicle.js';
@@ -8,7 +9,7 @@ import * as workshop from './views/workshop.js';
 import * as settings from './views/settings.js';
 
 const ROUTES = {
-  '': home,
+  accueil: home,
   achat: buying,
   vehicule: vehicle,
   diagnostic,
@@ -19,16 +20,16 @@ const ROUTES = {
 
 let cleanup;
 
+
 function route() {
-  const parts = location.hash.replace(/^#\/?/, '').split('/').map(decodeURIComponent);
-  const [name, ...params] = parts;
+  const { name, params } = parseHash(location.hash);
   const view = ROUTES[name] ?? home;
   const el = $('#view');
 
   if (typeof cleanup === 'function') cleanup();
   cleanup = undefined;
 
-  $$('.tabbar a').forEach((a) => a.toggleAttribute('aria-current', a.dataset.route === (ROUTES[name] ? name : '')));
+  $$('.tabbar a').forEach((a) => a.toggleAttribute('aria-current', a.dataset.route === (ROUTES[name] ? name : 'accueil')));
   try {
     cleanup = view.render(el, params);
   } catch (err) {
@@ -49,7 +50,7 @@ if (sharedText) {
   } catch {
     /* stockage indisponible */
   }
-  history.replaceState(null, '', location.pathname + '#/vehicule');
+  history.replaceState(null, '', location.pathname + '#vehicule');
 }
 
 window.addEventListener('hashchange', route);

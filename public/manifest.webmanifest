@@ -1,6 +1,6 @@
 {
-  "name": "Le Bon Vieux Marché Automobile",
-  "short_name": "LBVM Auto",
+  "name": "AUTOnomie",
+  "short_name": "AUTOnomie",
   "description": "Guide d'achat, infos véhicule, diagnostic OBD, carnet d'entretien, pièces et tutos.",
   "lang": "fr",
   "start_url": "./",

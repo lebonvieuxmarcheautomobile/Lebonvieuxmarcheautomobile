@@ -1,4 +1,4 @@
-import { html, raw, mount, $$, toast } from '../lib/dom.js';
+import { html, raw, mount, $$, toast, ask, isEmbedded } from '../lib/dom.js';
 import { store } from '../lib/store.js';
 import { BUYING_GUIDE } from '../data/buying-guide.js';
 
@@ -26,7 +26,7 @@ export function render(el) {
           </div>
           <p class="muted">${p.done} / ${total} points vérifiés · ${criticalOpen} essentiel(s) restant(s)</p>
           <div class="actions">
-            <button class="btn ghost" data-act="print">Imprimer</button>
+            ${isEmbedded ? '' : html`<button class="btn ghost" data-act="print">Imprimer</button>`}
             <button class="btn ghost" data-act="reset">Recommencer</button>
           </div>
         </header>
@@ -72,10 +72,10 @@ export function render(el) {
     draw();
     $$('details', el).forEach((d, i) => (d.open = open[i]));
   };
-  const onClick = (e) => {
+  const onClick = async (e) => {
     const act = e.target.closest('[data-act]')?.dataset.act;
     if (act === 'print') window.print();
-    if (act === 'reset' && confirm('Effacer toutes les cases cochées ?')) {
+    if (act === 'reset' && (await ask('Effacer toutes les cases cochées ?', { ok: 'Recommencer' }))) {
       Object.keys(state).forEach((k) => delete state[k]);
       store.saveChecklist(state);
       draw();

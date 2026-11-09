@@ -16,11 +16,13 @@
   --radius: 14px;
   --shadow: 0 1px 2px rgb(15 42 74 / 6%), 0 4px 16px rgb(15 42 74 / 6%);
   --tabbar-h: 64px;
+  --on-primary: #ffffff;
   color-scheme: light;
 }
 
+/* Thème sombre : système (sans choix explicite) ou data-theme="dark" ; data-theme="light" force le clair. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg: #0d1520;
     --surface: #152131;
     --text: #e7edf4;
@@ -35,8 +37,28 @@
     --bad: #ff8a80;
     --bad-bg: #3a1714;
     --shadow: none;
+    --on-primary: #0d1520;
     color-scheme: dark;
   }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0d1520;
+  --surface: #152131;
+  --text: #e7edf4;
+  --muted: #9aa8b8;
+  --line: #26364a;
+  --primary: #5aa0ea;
+  --primary-2: #7db6f0;
+  --ok: #5cd08b;
+  --ok-bg: #12301f;
+  --warn: #f2c35b;
+  --warn-bg: #33280d;
+  --bad: #ff8a80;
+  --bad-bg: #3a1714;
+  --shadow: none;
+  --on-primary: #0d1520;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -73,6 +95,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   background: #0f2a4a; color: #fff;
 }
 .brand { display: flex; gap: 10px; align-items: center; color: #fff; text-decoration: none; font-weight: 700; line-height: 1.1; }
+.brand-name { font-size: 1.25rem; letter-spacing: .01em; }
 .brand small { display: block; font-weight: 500; opacity: .8; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; }
 .icon-btn { color: #fff; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; }
 .icon-btn svg, .tabbar svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -221,7 +244,7 @@ dialog::backdrop { background: rgb(0 0 0 / 45%); }
 .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
 .tabs a { flex: 1; text-align: center; padding: 10px; border-radius: 10px; text-decoration: none; color: var(--muted); font-weight: 600; background: var(--surface); border: 1px solid var(--line); }
 .tabs a[aria-selected='true'] { background: var(--primary); color: #fff; border-color: var(--primary); }
-@media (prefers-color-scheme: dark) { .tabs a[aria-selected='true'] { color: #0d1520; } }
+.tabs a[aria-selected='true'] { color: var(--on-primary); }
 .toolbar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 @media (max-width: 420px) { .toolbar { grid-template-columns: 1fr; } }
 .catalogue { list-style: none; padding: 0; margin: 0; }

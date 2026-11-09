@@ -109,7 +109,7 @@ export function render(el) {
             <summary class="small"><strong>Utiliser avec Immat Scanner</strong></summary>
             <ol class="small">
               <li>Installez cette application sur l’écran d’accueil (menu de Chrome → « Installer l’application »).</li>
-              <li>Dans Immat Scanner, scannez la plaque puis touchez <strong>Partager</strong> et choisissez <strong>LBVM Auto</strong> : la recherche se lance automatiquement.</li>
+              <li>Dans Immat Scanner, scannez la plaque puis touchez <strong>Partager</strong> et choisissez <strong>AUTOnomie</strong> : la recherche se lance automatiquement.</li>
               <li>Ou copiez le résultat dans Immat Scanner, revenez ici et touchez <strong>Coller depuis Immat Scanner</strong>.</li>
             </ol>
           </details>
@@ -160,8 +160,8 @@ export function render(el) {
         </div>
         <dl class="specs">${specRows(v).map(([k, val]) => html`<div><dt>${k}</dt><dd>${val}</dd></div>`)}</dl>
         <div class="actions">
-          <a class="btn ghost" href="#/atelier">Pièces pour ce véhicule</a>
-          <a class="btn ghost" href="#/achat">Check-list d’achat</a>
+          <a class="btn ghost" href="#atelier">Pièces pour ce véhicule</a>
+          <a class="btn ghost" href="#achat">Check-list d’achat</a>
         </div>
       </section>
 
@@ -304,7 +304,7 @@ export function render(el) {
       });
       store.saveVehicles(vehicles);
       toast('Ajouté au carnet');
-      location.hash = `#/carnet/${id}`;
+      location.hash = `#carnet-${id}`;
     }
   };
 

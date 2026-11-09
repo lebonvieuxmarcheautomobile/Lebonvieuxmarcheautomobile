@@ -139,5 +139,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Le Bon Vieux Marché Automobile -> http://localhost:${PORT} (fournisseur plaque : ${provider.name})`);
+  console.log(`AUTOnomie -> http://localhost:${PORT} (fournisseur plaque : ${provider.name})`);
 });

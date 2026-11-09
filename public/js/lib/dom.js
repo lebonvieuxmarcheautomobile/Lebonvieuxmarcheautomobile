@@ -71,3 +71,38 @@ export function formData(form) {
 }
 
 export const uid = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+
+/**
+ * Demande de confirmation dans la page (remplace window.confirm, bloqué dans certains
+ * cadres intégrés). Résout true si l'utilisateur confirme.
+ */
+export function ask(message, { ok = 'Confirmer', danger = true } = {}) {
+  return new Promise((resolve) => {
+    const dlg = document.createElement('dialog');
+    dlg.className = 'confirm';
+    dlg.innerHTML = `<form method="dialog" class="stack">
+      <p></p>
+      <div class="actions end">
+        <button class="btn ghost" value="non">Annuler</button>
+        <button class="btn ${danger ? 'danger' : 'primary'}" value="oui"></button>
+      </div>
+    </form>`;
+    dlg.querySelector('p').textContent = message;
+    dlg.querySelector('[value=oui]').textContent = ok;
+    dlg.addEventListener('close', () => {
+      resolve(dlg.returnValue === 'oui');
+      dlg.remove();
+    });
+    document.body.append(dlg);
+    dlg.showModal();
+  });
+}
+
+/** Vrai quand l'application tourne dans un cadre intégré (ex. aperçu Claude). */
+export const isEmbedded = (() => {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+})();
