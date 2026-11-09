@@ -1,4 +1,5 @@
 import { html, raw, mount, $ } from '../lib/dom.js';
+import { icon } from '../lib/icons.js';
 import { store } from '../lib/store.js';
 import { CATALOGUE, shopSearchUrl } from '../data/catalogue.js';
 import { TUTORIALS, DIFFICULTY_LABEL } from '../data/tutorials.js';
@@ -7,7 +8,9 @@ const EXT = raw('target="_blank" rel="noopener"');
 const itemsById = Object.fromEntries(CATALOGUE.flatMap((c) => c.items).map((i) => [i.id, i]));
 const tutoById = Object.fromEntries(TUTORIALS.map((t) => [t.id, t]));
 
-const stars = (n) => html`<span class="difficulty" aria-label="Difficulté ${DIFFICULTY_LABEL[n]}">${'●'.repeat(n)}${'○'.repeat(3 - n)} ${DIFFICULTY_LABEL[n]}</span>`;
+const stars = (n) =>
+  html`<span class="difficulty"><b aria-hidden="true">${[1, 2, 3].map((k) => html`<i class="${k <= n ? 'on' : ''}"></i>`)}</b>${DIFFICULTY_LABEL[n]}</span>`;
+const meta = (t) => html`<p class="meta"><span>${stars(t.difficulty)}</span><span>${icon('clock', { size: 18 })} ${t.duration}</span></p>`;
 
 function currentVehicle() {
   const id = store.get('workshopVehicle', '');
@@ -24,7 +27,7 @@ function tutoView(el, t) {
       <header class="page-head">
         <a href="#atelier-tutos" class="link">← Tous les tutos</a>
         <h1>${t.title}</h1>
-        <p>${stars(t.difficulty)} · ⏱ ${t.duration}</p>
+        ${meta(t)}
       </header>
 
       ${t.safety.length ? html`<section class="notice warn"><strong>Sécurité</strong><ul>${t.safety.map((s) => html`<li>${s}</li>`)}</ul></section>` : ''}
@@ -94,14 +97,14 @@ function mainView(el, tab, filter = '') {
             const items = cat.items.filter((i) => matches(`${i.name} ${i.tip} ${cat.title}`));
             if (!items.length) return '';
             return html`<section class="card">
-              <h2><span aria-hidden="true">${cat.icon}</span> ${cat.title}</h2>
+              <div class="card-head"><span class="chip-icon">${icon(cat.icon, { size: 20 })}</span><h2>${cat.title}</h2></div>
               <ul class="catalogue">
                 ${items.map(
                   (i) => html`<li>
                     <div>
                       <strong>${i.name}</strong>
                       <p class="small muted">${i.tip}</p>
-                      ${i.tutos.length ? html`<p class="small">${i.tutos.map((tid) => html`<a class="link" href="#atelier-tuto-${tid}">🔧 ${tutoById[tid]?.title}</a> `)}</p>` : ''}
+                      ${i.tutos.length ? html`<p class="small">${i.tutos.map((tid) => html`<a class="link" href="#atelier-tuto-${tid}">${icon('wrench', { size: 18 })} ${tutoById[tid]?.title}</a> `)}</p>` : ''}
                     </div>
                     <a class="btn small" href="${shopSearchUrl(template, i.query, v)}" ${EXT}>Voir chez Carter-Cash ↗</a>
                   </li>`,
@@ -113,8 +116,7 @@ function mainView(el, tab, filter = '') {
             ${TUTORIALS.filter((t) => matches(`${t.title} ${t.steps.join(' ')}`)).map(
               (t) => html`<li><a class="card tuto" href="#atelier-tuto-${t.id}">
                 <strong>${t.title}</strong>
-                <span class="small">${stars(t.difficulty)}</span>
-                <span class="small muted">⏱ ${t.duration}</span>
+                ${meta(t)}
               </a></li>`,
             )}
           </ul>`}

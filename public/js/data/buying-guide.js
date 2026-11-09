@@ -5,7 +5,7 @@ export const BUYING_GUIDE = [
   {
     id: 'prep',
     title: 'Avant de se déplacer',
-    icon: '🔎',
+    icon: 'search',
     items: [
       { id: 'cote', text: 'Comparer le prix à la cote et aux annonces similaires (même année, kilométrage, finition).', detail: 'Un prix nettement sous le marché est le premier signe d’arnaque.' },
       { id: 'histovec', text: 'Demander au vendeur le lien de son rapport HistoVec (gratuit, officiel).', detail: 'Il indique le nombre de propriétaires, les sinistres déclarés, l’historique des CT et du kilométrage, et la situation administrative (gage, opposition).', critical: true, link: { label: 'HistoVec', url: 'https://histovec.interieur.gouv.fr/' } },
@@ -17,7 +17,7 @@ export const BUYING_GUIDE = [
   {
     id: 'docs',
     title: 'Documents',
-    icon: '📄',
+    icon: 'file',
     items: [
       { id: 'cg', text: 'Certificat d’immatriculation (carte grise) original au nom du vendeur.', detail: 'Comparer l’identité du vendeur (pièce d’identité) avec le titulaire. Vérifier le VIN (champ E) sur la carte grise ET sur le véhicule (pare-brise, frappe à froid, étiquette de portière).', critical: true },
       { id: 'ct', text: 'Procès-verbal de contrôle technique de moins de 6 mois (véhicule de plus de 4 ans).', detail: 'En cas de contre-visite, celle-ci doit dater de moins de 2 mois. Lire la liste des défaillances mineures : elles annoncent les dépenses.', critical: true },
@@ -29,7 +29,7 @@ export const BUYING_GUIDE = [
   {
     id: 'ext',
     title: 'Carrosserie & extérieur',
-    icon: '🚗',
+    icon: 'car',
     items: [
       { id: 'teintes', text: 'Différences de teinte ou de brillance entre éléments, traces de peinture sur les joints.', detail: 'Signe de réparation après choc : demander pourquoi.' },
       { id: 'jeux', text: 'Jeux entre éléments (capot, portes, hayon) réguliers des deux côtés.' },
@@ -43,7 +43,7 @@ export const BUYING_GUIDE = [
   {
     id: 'int',
     title: 'Intérieur & équipements',
-    icon: '💺',
+    icon: 'seat',
     items: [
       { id: 'usure', text: 'Usure du volant, du pommeau et des pédales cohérente avec le kilométrage.', detail: 'Un volant lisse et un pédalier usé sur une voiture à 60 000 km : méfiance (compteur ?).' },
       { id: 'voyants', text: 'Contact mis : tous les voyants s’allument, puis s’éteignent au démarrage (moteur, airbag, ABS, huile).', critical: true },
@@ -55,7 +55,7 @@ export const BUYING_GUIDE = [
   {
     id: 'moteur',
     title: 'Moteur (à froid)',
-    icon: '⚙️',
+    icon: 'engine',
     items: [
       { id: 'huile', text: 'Niveau et aspect de l’huile ; dessous du bouchon de remplissage sans « mayonnaise ».', detail: 'Une émulsion beige peut indiquer un joint de culasse défectueux.', critical: true },
       { id: 'lr', text: 'Niveau du liquide de refroidissement, sans trace d’huile.' },
@@ -67,7 +67,7 @@ export const BUYING_GUIDE = [
   {
     id: 'essai',
     title: 'Essai routier',
-    icon: '🛣️',
+    icon: 'road',
     items: [
       { id: 'embrayage', text: 'Embrayage : point de patinage pas trop haut ; pas de patinage en accélérant fort en 4e/5e.' },
       { id: 'boite', text: 'Passage des rapports sans craquement ; boîte auto sans à-coups ni glissement.' },
@@ -80,7 +80,7 @@ export const BUYING_GUIDE = [
   {
     id: 'obd',
     title: 'Contrôle OBD (avec un adaptateur à ~20 €)',
-    icon: '🔌',
+    icon: 'plug',
     items: [
       { id: 'codes', text: 'Lire les codes défaut mémorisés et en attente.', link: { label: 'Ouvrir le diagnostic', url: '#diagnostic' } },
       { id: 'readiness', text: 'Vérifier les moniteurs antipollution (« readiness ») et la distance depuis l’effacement des codes.', detail: 'Des moniteurs non prêts ou une distance très faible depuis l’effacement = codes effacés récemment, souvent juste avant la vente.', critical: true },
@@ -90,7 +90,7 @@ export const BUYING_GUIDE = [
   {
     id: 'paiement',
     title: 'Négociation & paiement',
-    icon: '💶',
+    icon: 'euro',
     items: [
       { id: 'nego', text: 'Négocier sur des éléments objectifs : pneus, distribution, défauts CT, codes défaut, rappels non faits.' },
       { id: 'acompte', text: 'Ne jamais verser d’acompte pour un véhicule non vu (vendeur « à l’étranger », transporteur…).', critical: true },
@@ -101,7 +101,7 @@ export const BUYING_GUIDE = [
   {
     id: 'apres',
     title: 'Après l’achat',
-    icon: '✅',
+    icon: 'check-circle',
     items: [
       { id: 'assurance', text: 'Assurer le véhicule AVANT de prendre la route.', critical: true },
       { id: 'ants', text: 'Faire la demande de carte grise à votre nom sous 1 mois sur le site officiel de l’ANTS (avec le code de cession fourni par le vendeur).', link: { label: 'ANTS', url: 'https://immatriculation.ants.gouv.fr/' } },

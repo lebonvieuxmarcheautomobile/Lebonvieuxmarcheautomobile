@@ -7,7 +7,7 @@ export const CATALOGUE = [
   {
     id: 'entretien',
     title: 'Entretien moteur',
-    icon: '🛢️',
+    icon: 'oil',
     items: [
       { id: 'huile', name: 'Huile moteur', query: 'huile moteur', tip: 'Respecter la norme constructeur (ex. PSA B71 2290, VW 504.00/507.00, Renault RN0720) et la viscosité (ex. 0W-20, 5W-30) indiquées dans le carnet.', tutos: ['vidange'] },
       { id: 'filtre-huile', name: 'Filtre à huile', query: 'filtre a huile', tip: 'À changer à chaque vidange. Choisir selon le moteur exact (cartouche ou filtre vissé).', tutos: ['vidange'] },
@@ -21,7 +21,7 @@ export const CATALOGUE = [
   {
     id: 'freinage',
     title: 'Freinage',
-    icon: '🛑',
+    icon: 'brake',
     items: [
       { id: 'plaquettes', name: 'Plaquettes de frein', query: 'plaquettes de frein', tip: 'Toujours par essieu complet (gauche + droite). Vérifier le système de freinage (Bosch, TRW, ATE…) et la présence d’un témoin d’usure.', tutos: ['plaquettes'] },
       { id: 'disques', name: 'Disques de frein', query: 'disques de frein', tip: 'Remplacer si l’épaisseur est sous le minimum gravé sur le disque, toujours avec des plaquettes neuves.', tutos: ['plaquettes'] },
@@ -31,7 +31,7 @@ export const CATALOGUE = [
   {
     id: 'electricite',
     title: 'Batterie & électricité',
-    icon: '🔋',
+    icon: 'battery',
     items: [
       { id: 'batterie', name: 'Batterie', query: 'batterie voiture', tip: 'Respecter la capacité (Ah), le courant de démarrage (A), les dimensions et la polarité. Start & Stop : batterie EFB ou AGM obligatoire.', tutos: ['batterie'] },
       { id: 'ampoules', name: 'Ampoules (H7, H4, H1, W5W…)', query: 'ampoule h7', tip: 'Le type est indiqué dans le manuel ou sur l’ampoule. Changer par paire pour un éclairage homogène.', tutos: ['ampoule', 'feux-arriere'] },
@@ -42,7 +42,7 @@ export const CATALOGUE = [
   {
     id: 'visibilite',
     title: 'Visibilité',
-    icon: '🌧️',
+    icon: 'wiper',
     items: [
       { id: 'balais', name: 'Balais d’essuie-glace', query: 'balais essuie glace', tip: 'Longueur conducteur et passager souvent différentes ; vérifier le type de fixation.', tutos: ['essuie-glace', 'balai-arriere'] },
       { id: 'lave-glace', name: 'Liquide lave-glace', query: 'lave glace', tip: 'Version hiver (antigel) dès l’automne.', tutos: ['niveaux'] },
@@ -51,7 +51,7 @@ export const CATALOGUE = [
   {
     id: 'pneus',
     title: 'Pneus & roues',
-    icon: '🛞',
+    icon: 'tire',
     items: [
       { id: 'pneu', name: 'Pneus', query: 'pneu', tip: 'Dimension sur le flanc (ex. 205/55 R16 91V). Pneus 4 saisons ou hiver selon les obligations « loi Montagne ».', tutos: ['usure-pneus', 'roue', 'pression'] },
       { id: 'chaines', name: 'Chaînes / chaussettes neige', query: 'chaussettes neige', tip: 'Choisir selon la dimension exacte des pneus.', tutos: ['chaines-neige'] },
@@ -61,7 +61,7 @@ export const CATALOGUE = [
   {
     id: 'liquides',
     title: 'Liquides',
-    icon: '💧',
+    icon: 'drop',
     items: [
       { id: 'refroidissement', name: 'Liquide de refroidissement', query: 'liquide de refroidissement', tip: 'Respecter le type (couleur / norme) préconisé. Ne jamais ouvrir le vase d’expansion moteur chaud.', tutos: ['niveaux', 'liquide-refroidissement'] },
       { id: 'adblue', name: 'AdBlue', query: 'adblue', tip: 'Pour les diesels équipés SCR. Ne jamais verser dans le réservoir de carburant.', tutos: ['adblue'] },
@@ -70,7 +70,7 @@ export const CATALOGUE = [
   {
     id: 'outillage',
     title: 'Outillage & diagnostic',
-    icon: '🧰',
+    icon: 'toolbox',
     items: [
       { id: 'obd', name: 'Adaptateur OBD2 ELM327 Bluetooth LE', query: 'valise diagnostic obd', tip: 'Pour l’application : choisir un modèle « Bluetooth LE / BLE » (compatible iPhone/Android) ou USB. Les modèles Bluetooth « classique » ne fonctionnent pas depuis un navigateur.', tutos: ['obd'] },
       { id: 'cric', name: 'Cric et chandelles', query: 'chandelles', tip: 'Ne jamais travailler sous un véhicule uniquement posé sur un cric : chandelles obligatoires.', tutos: ['roue', 'plaquettes'] },
