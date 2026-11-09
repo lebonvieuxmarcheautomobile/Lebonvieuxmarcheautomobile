@@ -1,4 +1,4 @@
-# Le Bon Vieux Marché Automobile
+# AUTOnomie
 
 Application web (installable sur mobile, fonctionne hors connexion) pour les particuliers qui achètent, entretiennent et réparent leur voiture.
 
@@ -15,7 +15,7 @@ Application web (installable sur mobile, fonctionne hors connexion) pour les par
 L'application reçoit les plaques scannées par l'app Android **Immat Scanner** (ou toute autre app de scan) :
 
 1. Installer l'application sur l'écran d'accueil (Chrome → « Installer l'application »).
-2. Dans Immat Scanner, scanner la plaque puis **Partager** → **LBVM Auto** : l'onglet Plaque s'ouvre et lance la recherche.
+2. Dans Immat Scanner, scanner la plaque puis **Partager** → **AUTOnomie** : l'onglet Plaque s'ouvre et lance la recherche.
 3. Ou copier le résultat dans Immat Scanner puis toucher **Coller depuis Immat Scanner** dans l'onglet Plaque.
 
 La plaque est retrouvée dans le texte reçu, quel que soit son format (`AB-123-CD`, `AB 123 CD`, `123 ABC 45`…). Immat Scanner ne publie pas d'API : l'échange passe donc par le partage Android ou le presse-papiers.

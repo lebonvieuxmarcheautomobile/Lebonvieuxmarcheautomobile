@@ -109,7 +109,7 @@ export function render(el) {
             <summary class="small"><strong>Utiliser avec Immat Scanner</strong></summary>
             <ol class="small">
               <li>Installez cette application sur l’écran d’accueil (menu de Chrome → « Installer l’application »).</li>
-              <li>Dans Immat Scanner, scannez la plaque puis touchez <strong>Partager</strong> et choisissez <strong>LBVM Auto</strong> : la recherche se lance automatiquement.</li>
+              <li>Dans Immat Scanner, scannez la plaque puis touchez <strong>Partager</strong> et choisissez <strong>AUTOnomie</strong> : la recherche se lance automatiquement.</li>
               <li>Ou copiez le résultat dans Immat Scanner, revenez ici et touchez <strong>Coller depuis Immat Scanner</strong>.</li>
             </ol>
           </details>

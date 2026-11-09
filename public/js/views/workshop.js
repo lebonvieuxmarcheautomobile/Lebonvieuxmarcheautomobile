@@ -119,7 +119,7 @@ function mainView(el, tab, filter = '') {
             )}
           </ul>`}
 
-      <p class="fineprint">Les liens ouvrent une recherche sur le site carter-cash.com, où se trouvent prix, stock et compatibilité exacte. Le Bon Vieux Marché Automobile n’est pas affilié à Carter-Cash.</p>
+      <p class="fineprint">Les liens ouvrent une recherche sur le site carter-cash.com, où se trouvent prix, stock et compatibilité exacte. AUTOnomie n’est pas affiliée à Carter-Cash.</p>
     `,
   );
 }
