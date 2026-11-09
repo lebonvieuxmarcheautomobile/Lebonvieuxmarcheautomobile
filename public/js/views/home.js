@@ -52,7 +52,7 @@ export function render(el) {
     el,
     html`
       <section class="hero" aria-labelledby="hero-title">
-        <span class="eyebrow">${icon('shield', { size: 16 })} Votre copilote automobile</span>
+        <img class="hero-banner" src="assets/logo-banniere.jpg" width="1206" height="539" alt="AUTOnomie – Le garage solidaire pour une mobilité accessible et durable : entretien et réparation, mobilité solidaire, économie circulaire, insertion et formation" />
         <h1 id="hero-title">Achetez, vérifiez et entretenez votre voiture en confiance</h1>
         <p>Entrez une immatriculation pour connaître les rappels et les défauts connus du modèle.</p>
         <form class="hero-search" id="hero-search" autocomplete="off">
