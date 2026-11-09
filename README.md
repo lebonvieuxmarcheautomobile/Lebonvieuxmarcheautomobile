@@ -20,6 +20,14 @@ L'application reçoit les plaques scannées par l'app Android **Immat Scanner** 
 
 La plaque est retrouvée dans le texte reçu, quel que soit son format (`AB-123-CD`, `AB 123 CD`, `123 ABC 45`…). Immat Scanner ne publie pas d'API : l'échange passe donc par le partage Android ou le presse-papiers.
 
+## Version en ligne
+
+L'application est publiée automatiquement sur GitHub Pages à chaque mise à jour de `main` :
+**https://lebonvieuxmarcheautomobile.github.io/Lebonvieuxmarcheautomobile/**
+
+Sur Android : ouvrir l'adresse dans Chrome → menu ⋮ → **Installer l'application**. Elle apparaît alors sur l'écran d'accueil et dans le menu « Partager » (Immat Scanner).
+La version en ligne est statique : la fiche technique par plaque fonctionne en mode démo (il faut le serveur Node et un fournisseur payant pour les vraies plaques) ; tout le reste est opérationnel.
+
 ## Démarrer
 
 ```bash
