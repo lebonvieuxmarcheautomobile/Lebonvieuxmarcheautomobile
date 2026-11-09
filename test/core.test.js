@@ -182,3 +182,9 @@ test('nouveaux défauts : moteurs partagés et marques', () => {
   // Pas de faux positif : Ford 1.6 essence Duratec
   assert.ok(!ids({ brand: 'Ford', model: 'Focus', engine: '1.6 Duratec 100', year: 2008 }).includes('psa-dv6-hdi'));
 });
+
+test('chaque tuto renvoie vers un guide professionnel', () => {
+  for (const t of TUTORIALS) {
+    assert.ok(t.guide && /^https:\/\/www\.(carter-cash|mister-auto)\.com\//.test(t.guide.url) && t.guide.title && t.guide.source, t.id);
+  }
+});

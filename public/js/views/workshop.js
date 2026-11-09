@@ -30,6 +30,14 @@ function tutoView(el, t) {
         ${meta(t)}
       </header>
 
+      ${t.guide
+        ? html`<a class="card guide-card" href="${t.guide.url}" ${EXT}>
+            <span class="chip-icon">${icon('file', { size: 22 })}</span>
+            <span class="guide-text"><span class="eyebrow">Guide illustré · ${t.guide.source}</span><strong>${t.guide.title}</strong><small class="muted">Photos et explications d’un professionnel de l’entretien automobile</small></span>
+            <span class="tile-go">${icon('external', { size: 20 })}</span>
+          </a>`
+        : ''}
+
       ${t.safety.length ? html`<section class="notice warn"><strong>Sécurité</strong><ul>${t.safety.map((s) => html`<li>${s}</li>`)}</ul></section>` : ''}
 
       <section class="card">
@@ -117,6 +125,7 @@ function mainView(el, tab, filter = '') {
               (t) => html`<li><a class="card tuto" href="#atelier-tuto-${t.id}">
                 <strong>${t.title}</strong>
                 ${meta(t)}
+                ${t.guide ? html`<span class="pill ok">Guide pro ${t.guide.source}</span>` : ''}
               </a></li>`,
             )}
           </ul>`}

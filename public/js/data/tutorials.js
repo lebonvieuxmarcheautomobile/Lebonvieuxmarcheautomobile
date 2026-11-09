@@ -1,9 +1,11 @@
-// Tutoriels de montage « fait maison ». Toujours consulter la documentation technique
+// Tutoriels de montage « fait maison ». `guide` renvoie vers le guide illustré
+// d'un professionnel (photos et/ou vidéo) traitant la même opération. Toujours consulter la documentation technique
 // du véhicule pour les couples de serrage et particularités.
 
 export const TUTORIALS = [
   {
     id: 'vidange',
+    guide: { source: 'Carter-Cash', title: 'Changer l’huile moteur d’une voiture', url: 'https://www.carter-cash.com/blog/tuto-changer-huile-moteur-dune-voiture/' },
     title: 'Faire sa vidange et changer le filtre à huile',
     difficulty: 2,
     duration: '45 min – 1 h',
@@ -25,6 +27,7 @@ export const TUTORIALS = [
   },
   {
     id: 'plaquettes',
+    guide: { source: 'Carter-Cash', title: 'Remplacer les plaquettes de frein avant', url: 'https://www.carter-cash.com/blog/reparer-ma-voiture/remplacer-plaquettes-frein-avant/' },
     title: 'Remplacer les plaquettes de frein avant',
     difficulty: 3,
     duration: '1 h – 1 h 30',
@@ -47,6 +50,7 @@ export const TUTORIALS = [
   },
   {
     id: 'batterie',
+    guide: { source: 'Carter-Cash', title: 'Changer la batterie d’une voiture', url: 'https://www.carter-cash.com/blog/entretenir-ma-voiture/changer-batterie-voiture/' },
     title: 'Changer la batterie',
     difficulty: 2,
     duration: '20 – 40 min',
@@ -66,6 +70,7 @@ export const TUTORIALS = [
   },
   {
     id: 'ampoule',
+    guide: { source: 'Carter-Cash', title: 'Changer une ampoule de phare avant', url: 'https://www.carter-cash.com/blog/?p=50837' },
     title: 'Remplacer une ampoule de phare (H7 / H4)',
     difficulty: 1,
     duration: '10 – 30 min',
@@ -84,6 +89,7 @@ export const TUTORIALS = [
   },
   {
     id: 'essuie-glace',
+    guide: { source: 'Carter-Cash', title: 'Changer ses balais d’essuie-glace', url: 'https://www.carter-cash.com/blog/tuto-changer-essuie-glace-facilement/' },
     title: 'Changer les balais d’essuie-glace',
     difficulty: 1,
     duration: '5 – 10 min',
@@ -100,6 +106,7 @@ export const TUTORIALS = [
   },
   {
     id: 'filtre-habitacle',
+    guide: { source: 'Carter-Cash', title: 'Changer un filtre d’habitacle', url: 'https://www.carter-cash.com/blog/tuto-changer-filtre-habitacle/' },
     title: 'Remplacer le filtre d’habitacle',
     difficulty: 1,
     duration: '15 – 30 min',
@@ -117,6 +124,7 @@ export const TUTORIALS = [
   },
   {
     id: 'filtre-air',
+    guide: { source: 'Carter-Cash', title: 'Changer le filtre à air d’une voiture', url: 'https://www.carter-cash.com/blog/tuto-changer-le-filtre-a-air/' },
     title: 'Remplacer le filtre à air moteur',
     difficulty: 1,
     duration: '10 – 20 min',
@@ -133,6 +141,7 @@ export const TUTORIALS = [
   },
   {
     id: 'bougies',
+    guide: { source: 'Carter-Cash', title: 'Changer les bougies d’allumage', url: 'https://www.carter-cash.com/blog/?p=48413' },
     title: 'Remplacer les bougies d’allumage',
     difficulty: 3,
     duration: '30 min – 1 h',
@@ -150,6 +159,7 @@ export const TUTORIALS = [
   },
   {
     id: 'roue',
+    guide: { source: 'Carter-Cash', title: 'Monter une roue de secours', url: 'https://www.carter-cash.com/blog/comment-monter-une-roue-de-secours/' },
     title: 'Changer une roue',
     difficulty: 1,
     duration: '20 – 30 min',
@@ -168,6 +178,7 @@ export const TUTORIALS = [
   },
   {
     id: 'pression',
+    guide: { source: 'Carter-Cash', title: 'Vérifier et ajuster la pression des pneus', url: 'https://www.carter-cash.com/blog/?p=47572' },
     title: 'Contrôler la pression des pneus',
     difficulty: 1,
     duration: '10 min',
@@ -184,6 +195,7 @@ export const TUTORIALS = [
   },
   {
     id: 'niveaux',
+    guide: { source: 'Carter-Cash', title: 'Vérifier le niveau d’huile moteur', url: 'https://www.carter-cash.com/blog/?p=36562' },
     title: 'Vérifier les niveaux (huile, refroidissement, lave-glace, frein)',
     difficulty: 1,
     duration: '10 min',
@@ -201,6 +213,7 @@ export const TUTORIALS = [
   },
   {
     id: 'demarrer-cables',
+    guide: { source: 'Carter-Cash', title: 'Choisir et utiliser des câbles de démarrage', url: 'https://www.carter-cash.com/blog/?p=92' },
     title: 'Démarrer avec des câbles ou un booster',
     difficulty: 1,
     duration: '10 – 15 min',
@@ -224,6 +237,7 @@ export const TUTORIALS = [
   },
   {
     id: 'purge-frein',
+    guide: { source: 'Carter-Cash', title: 'Remplacer son liquide de frein', url: 'https://www.carter-cash.com/blog/?p=47204' },
     title: 'Purger et remplacer le liquide de frein',
     difficulty: 3,
     duration: '1 h – 1 h 30',
@@ -248,6 +262,7 @@ export const TUTORIALS = [
   },
   {
     id: 'liquide-refroidissement',
+    guide: { source: 'Carter-Cash', title: 'Changer son liquide de refroidissement', url: 'https://www.carter-cash.com/blog/tuto-changer-le-liquide-de-refroidissement/' },
     title: 'Remplacer le liquide de refroidissement',
     difficulty: 2,
     duration: '1 h – 1 h 30',
@@ -267,6 +282,7 @@ export const TUTORIALS = [
   },
   {
     id: 'filtre-gasoil',
+    guide: { source: 'Carter-Cash', title: 'Remplacer un filtre à gasoil', url: 'https://www.carter-cash.com/blog/tuto-remplacer-filtre-a-gasoil/' },
     title: 'Remplacer le filtre à gazole',
     difficulty: 3,
     duration: '45 min – 1 h',
@@ -285,6 +301,7 @@ export const TUTORIALS = [
   },
   {
     id: 'fusible',
+    guide: { source: 'Mister-Auto', title: 'Changer un fusible défectueux', url: 'https://www.mister-auto.com/blog/do-it-yourself/comment-changer-un-fusible-defectueux/' },
     title: 'Trouver et remplacer un fusible',
     difficulty: 1,
     duration: '10 – 20 min',
@@ -301,6 +318,7 @@ export const TUTORIALS = [
   },
   {
     id: 'feux-arriere',
+    guide: { source: 'Carter-Cash', title: 'Remplacer le feu arrière de votre voiture', url: 'https://www.carter-cash.com/blog/tuto-remplacer-feu-arriere-voiture/' },
     title: 'Remplacer une ampoule de feu arrière ou de clignotant',
     difficulty: 1,
     duration: '10 – 20 min',
@@ -318,6 +336,7 @@ export const TUTORIALS = [
   },
   {
     id: 'usure-pneus',
+    guide: { source: 'Carter-Cash', title: 'Vérifier l’usure de ses pneus', url: 'https://www.carter-cash.com/blog/comment-verifier-l-usure-d-un-pneu/' },
     title: 'Lire un pneu et contrôler son usure',
     difficulty: 1,
     duration: '10 min',
@@ -335,6 +354,7 @@ export const TUTORIALS = [
   },
   {
     id: 'chaines-neige',
+    guide: { source: 'Carter-Cash', title: 'Monter des chaînes à neige', url: 'https://www.carter-cash.com/blog/comment-monter-des-chaines-a-neige/' },
     title: 'Monter des chaînes ou des chaussettes à neige',
     difficulty: 2,
     duration: '10 – 20 min',
@@ -352,6 +372,7 @@ export const TUTORIALS = [
   },
   {
     id: 'adblue',
+    guide: { source: 'Carter-Cash', title: 'Mettre à niveau l’AdBlue', url: 'https://www.carter-cash.com/blog/?p=47887' },
     title: 'Faire le plein d’AdBlue',
     difficulty: 1,
     duration: '5 – 10 min',
@@ -367,6 +388,7 @@ export const TUTORIALS = [
   },
   {
     id: 'obd',
+    guide: { source: 'Carter-Cash', title: 'Utiliser un lecteur OBD 2', url: 'https://www.carter-cash.com/blog/comment-utiliser-un-diagnostiqueur-obd2/' },
     title: 'Brancher un adaptateur OBD et lire les codes défaut',
     difficulty: 1,
     duration: '10 min',
@@ -384,6 +406,7 @@ export const TUTORIALS = [
   },
   {
     id: 'courroie-accessoires',
+    guide: { source: 'Carter-Cash', title: 'Changer une courroie d’accessoire', url: 'https://www.carter-cash.com/blog/?p=50664' },
     title: 'Remplacer la courroie d’accessoires',
     difficulty: 3,
     duration: '45 min – 1 h 30',
@@ -402,6 +425,7 @@ export const TUTORIALS = [
   },
   {
     id: 'balai-arriere',
+    guide: { source: 'Carter-Cash', title: 'Changer le balai d’essuie-glace arrière', url: 'https://www.carter-cash.com/blog/?p=1977' },
     title: 'Remplacer le balai d’essuie-glace arrière',
     difficulty: 1,
     duration: '5 min',
