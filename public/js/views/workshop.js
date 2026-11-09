@@ -30,6 +30,19 @@ function tutoView(el, t) {
         ${meta(t)}
       </header>
 
+      <figure class="tuto-hero">
+        <img src="assets/tutos/${t.id}.jpg" alt="${t.title}" width="1280" height="720" />
+        <figcaption>Photo : Adobe Stock</figcaption>
+      </figure>
+
+      ${t.guide
+        ? html`<a class="card guide-card" href="${t.guide.url}" ${EXT}>
+            <span class="chip-icon">${icon('file', { size: 22 })}</span>
+            <span class="guide-text"><span class="eyebrow">Guide illustré · ${t.guide.source}</span><strong>${t.guide.title}</strong><small class="muted">Photos et explications d’un professionnel de l’entretien automobile</small></span>
+            <span class="tile-go">${icon('external', { size: 20 })}</span>
+          </a>`
+        : ''}
+
       ${t.safety.length ? html`<section class="notice warn"><strong>Sécurité</strong><ul>${t.safety.map((s) => html`<li>${s}</li>`)}</ul></section>` : ''}
 
       <section class="card">
@@ -115,8 +128,10 @@ function mainView(el, tab, filter = '') {
         : html`<ul class="tuto-grid">
             ${TUTORIALS.filter((t) => matches(`${t.title} ${t.steps.join(' ')}`)).map(
               (t) => html`<li><a class="card tuto" href="#atelier-tuto-${t.id}">
+                <img class="tuto-img" src="assets/tutos/${t.id}.jpg" alt="" loading="lazy" width="1280" height="720" />
                 <strong>${t.title}</strong>
                 ${meta(t)}
+                ${t.guide ? html`<span class="pill ok">Guide pro ${t.guide.source}</span>` : ''}
               </a></li>`,
             )}
           </ul>`}

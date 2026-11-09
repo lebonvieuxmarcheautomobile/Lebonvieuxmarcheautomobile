@@ -7,6 +7,7 @@ import * as diagnostic from './views/diagnostic.js';
 import * as logbook from './views/logbook.js';
 import * as workshop from './views/workshop.js';
 import * as settings from './views/settings.js';
+import * as histovec from './views/histovec.js';
 
 const ROUTES = {
   accueil: home,
@@ -16,7 +17,11 @@ const ROUTES = {
   carnet: logbook,
   atelier: workshop,
   reglages: settings,
+  histovec,
 };
+
+// Écrans rattachés à un onglet de la barre de navigation.
+const NAV_PARENT = { histovec: 'achat' };
 
 let cleanup;
 
@@ -29,7 +34,7 @@ function route() {
   if (typeof cleanup === 'function') cleanup();
   cleanup = undefined;
 
-  $$('.tabbar a').forEach((a) => a.toggleAttribute('aria-current', a.dataset.route === (ROUTES[name] ? name : 'accueil')));
+  $$('.tabbar a').forEach((a) => a.toggleAttribute('aria-current', a.dataset.route === (ROUTES[name] ? NAV_PARENT[name] || name : 'accueil')));
   try {
     cleanup = view.render(el, params);
   } catch (err) {
