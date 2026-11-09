@@ -36,7 +36,7 @@ const MIME = {
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'bluetooth=(self), serial=(self), camera=(), microphone=()',
+  'Permissions-Policy': 'serial=(self), camera=(), microphone=()',
 };
 
 // Limitation de débit très simple pour protéger l'API payante.
