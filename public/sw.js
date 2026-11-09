@@ -1,5 +1,5 @@
 // Service worker : l'application fonctionne hors connexion (sauf API et liens externes).
-const CACHE = 'lbvma-v7';
+const CACHE = 'lbvma-v8';
 const ASSETS = [
   './',
   './assets/icon-192.png',
@@ -28,6 +28,7 @@ const ASSETS = [
   './js/lib/vin.js',
   './js/views/buying.js',
   './js/views/diagnostic.js',
+  './js/views/histovec.js',
   './js/views/home.js',
   './js/views/logbook.js',
   './js/views/settings.js',

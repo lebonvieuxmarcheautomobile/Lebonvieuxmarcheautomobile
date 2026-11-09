@@ -105,7 +105,7 @@ function histovecCard(h) {
   return html`<section class="card">
     <div class="result-head">
       <h2>Rapport HistoVec</h2>
-      <a class="btn small" href="${h.link || 'https://histovec.interieur.gouv.fr/'}" ${EXT}>${h.link ? 'Ouvrir le rapport ↗' : 'Site HistoVec ↗'}</a>
+      <a class="btn small brand" href="#histovec">${icon('file', { size: 18 })} ${h.link ? 'Voir le rapport' : 'Consulter HistoVec'}</a>
     </div>
     <p class="small muted">Rapport officiel et gratuit du ministère de l’Intérieur. Demandez au vendeur de vous transmettre son lien, puis reportez ici ce qu’il indique.</p>
     <form id="hv-form" class="stack" autocomplete="off">

@@ -482,6 +482,14 @@ dialog.confirm p { font-size: 1.05rem; }
 .score-mini-note { font: 800 1.5rem/1 var(--font-display); font-variant-numeric: tabular-nums; }
 .score-mini-note small { font-size: .8rem; color: var(--muted); }
 
+/* ——— HistoVec intégré ——— */
+.hv-bar { display: grid; gap: 6px; }
+.hv-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.hv-row input { flex: 1 1 240px; margin-top: 0; }
+.hv-frame-wrap { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+.hv-frame { display: block; width: 100%; height: min(78vh, 900px); border: 0; background: #fff; }
+.hv-help { margin-top: 10px; }
+
 /* ——— Notification ——— */
 #toast {
   position: fixed; left: 50%; bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 14px); z-index: 50;
