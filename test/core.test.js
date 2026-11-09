@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizePlate, formatPlateAsTyped } from '../public/js/lib/plate.js';
+import { normalizePlate, formatPlateAsTyped, extractPlate } from '../public/js/lib/plate.js';
 import { normalizeVin, decodeVinLocally } from '../public/js/lib/vin.js';
 import { matchDefects } from '../public/js/lib/defects.js';
 import { KNOWN_DEFECTS } from '../public/js/data/known-defects.js';
@@ -147,4 +147,13 @@ test('RegCheck : uniquement des données techniques', () => {
   assert.equal(v.brand, 'PEUGEOT');
   assert.equal(v.year, 2018);
   assert.ok(!JSON.stringify(v).includes('NE PAS AFFICHER'));
+});
+
+test('plaque extraite d’un texte partagé (Immat Scanner…)', () => {
+  assert.equal(extractPlate('Plaque : ab-123-cd — Peugeot 208 1.2 PureTech').formatted, 'AB-123-CD');
+  assert.equal(extractPlate('Résultat du scan\nAB 123 CD').formatted, 'AB-123-CD');
+  assert.equal(extractPlate('vieille plaque 1234 AB 75 trouvée').formatted, '1234 AB 75');
+  assert.equal(extractPlate('https://exemple.fr/v?p=GH789JK').formatted, 'GH-789-JK');
+  assert.equal(extractPlate('Version 2.5.1 sans plaque'), null);
+  assert.equal(extractPlate('AO-123-CD'), null); // lettre interdite
 });

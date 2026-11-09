@@ -42,3 +42,20 @@ export function formatPlateAsTyped(input) {
   if (m) return [m[1], m[2], m[3]].filter(Boolean).join('-');
   return String(input ?? '').toUpperCase();
 }
+
+/**
+ * Retrouve une plaque dans un texte quelconque (texte partagé ou copié depuis une
+ * autre application, ex. Immat Scanner : « Plaque : AB-123-CD - Peugeot 208 »).
+ */
+export function extractPlate(text) {
+  const s = String(text ?? '').toUpperCase();
+  const candidates = [
+    ...s.matchAll(/(?<![A-Z0-9])([A-Z]{2})[\s-]?(\d{3})[\s-]?([A-Z]{2})(?![A-Z0-9])/g),
+    ...s.matchAll(/(?<![A-Z0-9])(\d{1,4})[\s-]?([A-Z]{1,3})[\s-]?(97[1-6]|2A|2B|\d{2})(?![A-Z0-9])/g),
+  ];
+  for (const m of candidates) {
+    const p = normalizePlate(m.slice(1).join(''));
+    if (p.valid) return p;
+  }
+  return null;
+}

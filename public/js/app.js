@@ -39,6 +39,19 @@ function route() {
   el.focus({ preventScroll: true });
 }
 
+// Texte reçu via « Partager » depuis une autre application (ex. Immat Scanner) :
+// on le garde pour l'onglet Plaque, qui en extrait l'immatriculation.
+const shared = new URLSearchParams(location.search);
+const sharedText = ['text', 'title', 'url'].map((k) => shared.get(k)).filter(Boolean).join(' ');
+if (sharedText) {
+  try {
+    sessionStorage.setItem('lbvma:shared', sharedText);
+  } catch {
+    /* stockage indisponible */
+  }
+  history.replaceState(null, '', location.pathname + '#/vehicule');
+}
+
 window.addEventListener('hashchange', route);
 route();
 

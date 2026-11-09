@@ -1,6 +1,6 @@
 import { html, raw, mount, $, formData, toast, uid } from '../lib/dom.js';
 import { store } from '../lib/store.js';
-import { normalizePlate, formatPlateAsTyped } from '../lib/plate.js';
+import { normalizePlate, formatPlateAsTyped, extractPlate } from '../lib/plate.js';
 import { normalizeVin, decodeVinLocally, decodeVinOnline } from '../lib/vin.js';
 import { fetchRecalls } from '../lib/recalls.js';
 import { matchDefects } from '../lib/defects.js';
@@ -100,8 +100,19 @@ export function render(el) {
             <input id="plate" name="plate" inputmode="text" autocapitalize="characters" spellcheck="false"
               placeholder="AB-123-CD" maxlength="12" value="${current?.vehicle?.plate || ''}" />
           </div>
-          <button class="btn primary" type="submit">Rechercher</button>
+          <div class="actions">
+            <button class="btn primary" type="submit">Rechercher</button>
+            <button class="btn" type="button" data-act="paste">Coller depuis Immat Scanner</button>
+          </div>
           <p class="muted small">Démo : ${Object.keys(DEMO_VEHICLES).join(' · ')}</p>
+          <details>
+            <summary class="small"><strong>Utiliser avec Immat Scanner</strong></summary>
+            <ol class="small">
+              <li>Installez cette application sur l’écran d’accueil (menu de Chrome → « Installer l’application »).</li>
+              <li>Dans Immat Scanner, scannez la plaque puis touchez <strong>Partager</strong> et choisissez <strong>LBVM Auto</strong> : la recherche se lance automatiquement.</li>
+              <li>Ou copiez le résultat dans Immat Scanner, revenez ici et touchez <strong>Coller depuis Immat Scanner</strong>.</li>
+            </ol>
+          </details>
         </form>
 
         <details class="card" id="manual">
@@ -195,6 +206,15 @@ export function render(el) {
     $('#result', el).scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  // Lance une recherche à partir d'un texte venant d'une autre application.
+  const searchFromText = (text, origin) => {
+    const p = extractPlate(text);
+    if (!p) return toast(`Aucune immatriculation trouvée dans le texte ${origin}.`, 'error');
+    const form = $('#plate-form', el);
+    form.plate.value = p.formatted;
+    form.requestSubmit();
+  };
+
   draw();
 
   const onInput = (e) => {
@@ -251,7 +271,16 @@ export function render(el) {
     }
   };
 
-  const onClick = (e) => {
+  const onClick = async (e) => {
+    if (e.target.closest('[data-act="paste"]')) {
+      try {
+        searchFromText(await navigator.clipboard.readText(), 'copié');
+      } catch {
+        toast('Accès au presse-papiers refusé : collez la plaque dans le champ.', 'error');
+        $('#plate', el).focus();
+      }
+      return;
+    }
     if (e.target.closest('[data-act="add"]') && current) {
       const v = current.vehicle;
       const vehicles = store.vehicles();
@@ -282,6 +311,17 @@ export function render(el) {
   el.addEventListener('input', onInput);
   el.addEventListener('submit', onSubmit);
   el.addEventListener('click', onClick);
+
+  // Plaque partagée depuis une autre application : recherche une fois les écouteurs en place.
+  let pendingShare;
+  try {
+    pendingShare = sessionStorage.getItem('lbvma:shared');
+    sessionStorage.removeItem('lbvma:shared');
+  } catch {
+    /* stockage indisponible */
+  }
+  if (pendingShare) searchFromText(pendingShare, 'partagé');
+
   return () => {
     el.removeEventListener('input', onInput);
     el.removeEventListener('submit', onSubmit);
