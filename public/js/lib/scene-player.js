@@ -46,89 +46,18 @@ export function applyStep(svgRoot, map = {}) {
   }
 }
 
-const FULL = [0, 0, 640, 360];
-const SVG_NS = 'http://www.w3.org/2000/svg';
-
-/** Cadre de caméra (viewBox) centré sur les pièces de l'étape, au format 16:9. */
-export function cameraFor(bb) {
-  if (!bb) return [...FULL];
-  let w = Math.max(bb.width * 2, 300);
-  let h = (w * 9) / 16;
-  if (bb.height * 1.7 > h) {
-    h = bb.height * 1.7;
-    w = (h * 16) / 9;
-  }
-  if (w >= 640) return [...FULL];
-  const x = Math.min(Math.max(bb.x + bb.width / 2 - w / 2, 0), 640 - w);
-  const y = Math.min(Math.max(bb.y + bb.height / 2 - h / 2, 0), 360 - h);
-  return [x, y, w, h];
-}
-
-function unionBBox(els) {
-  let bb = null;
-  for (const el of els) {
-    const b = el.getBBox();
-    if (!b.width && !b.height) continue;
-    bb = bb
-      ? (() => {
-          const x = Math.min(bb.x, b.x);
-          const y = Math.min(bb.y, b.y);
-          return { x, y, width: Math.max(bb.x + bb.width, b.x + b.width) - x, height: Math.max(bb.y + bb.height, b.y + b.height) - y };
-        })()
-      : { x: b.x, y: b.y, width: b.width, height: b.height };
-  }
-  return bb;
-}
-
 export function attachPlayer(root, t) {
   const box = $('[data-player]', root);
   if (!box) return () => {};
   const scene = SCENES[t.id];
   const svgRoot = $('.stage svg', box);
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   let i = 0;
   let timer = null;
-  let vb = [...FULL];
-  let raf = 0;
-
-  const setViewBox = (v) => svgRoot.setAttribute('viewBox', v.map((n) => n.toFixed(1)).join(' '));
-  const moveCamera = (target) => {
-    cancelAnimationFrame(raf);
-    if (reduced) {
-      vb = target;
-      return setViewBox(vb);
-    }
-    const from = [...vb];
-    const start = performance.now();
-    const tick = (now) => {
-      const k = Math.min(1, (now - start) / 900);
-      const e = k < 0.5 ? 4 * k * k * k : 1 - (-2 * k + 2) ** 3 / 2;
-      vb = from.map((f, n) => f + (target[n] - f) * e);
-      setViewBox(vb);
-      if (k < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-  };
-  const frame = () => {
-    svgRoot.querySelector('.callout')?.remove();
-    const focused = [...svgRoot.querySelectorAll('.focus')].filter((el) => !el.parentElement.closest('.focus'));
-    const bb = focused.length ? unionBBox(focused) : null;
-    moveCamera(cameraFor(bb));
-    if (bb) {
-      const ring = document.createElementNS(SVG_NS, 'circle');
-      ring.setAttribute('class', 'callout');
-      ring.setAttribute('cx', bb.x + bb.width / 2);
-      ring.setAttribute('cy', bb.y + bb.height / 2);
-      ring.setAttribute('r', Math.min(Math.max(bb.width, bb.height) / 2 + 8, 90));
-      svgRoot.append(ring);
-    }
-  };
 
   const stepItems = $$('.steps li', root);
   const show = (n) => {
     i = (n + t.steps.length) % t.steps.length;
     applyStep(svgRoot, scene.steps[i]);
-    frame();
     $('.cap-num', box).textContent = `Étape ${i + 1}/${t.steps.length}`;
     $('.cap-text', box).textContent = t.steps[i];
     $$('.pdot', box).forEach((d, k) => {
@@ -162,7 +91,6 @@ export function attachPlayer(root, t) {
   show(0);
   root.addEventListener('click', onClick);
   return () => {
-    cancelAnimationFrame(raf);
     clearInterval(timer);
     root.removeEventListener('click', onClick);
   };

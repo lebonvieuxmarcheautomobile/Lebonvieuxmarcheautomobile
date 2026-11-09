@@ -35,13 +35,3 @@ test('SVG bien formé (balises équilibrées)', () => {
     assert.ok(!svg.includes('undefined') && !svg.includes('NaN'), `${id} : valeur invalide`);
   }
 });
-
-test('caméra : cadre 16:9 dans la scène, plein cadre sans pièce', async () => {
-  const { cameraFor } = await import('../public/js/lib/scene-player.js');
-  assert.deepEqual(cameraFor(null), [0, 0, 640, 360]);
-  const [x, y, w, h] = cameraFor({ x: 380, y: 200, width: 30, height: 30 });
-  assert.ok(Math.abs(w / h - 16 / 9) < 1e-9);
-  assert.ok(x >= 0 && y >= 0 && x + w <= 640 + 1e-9 && y + h <= 360 + 1e-9);
-  assert.ok(w < 640, 'zoom effectif');
-  assert.deepEqual(cameraFor({ x: 0, y: 0, width: 600, height: 340 }), [0, 0, 640, 360]);
-});

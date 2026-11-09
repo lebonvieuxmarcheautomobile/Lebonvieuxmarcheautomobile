@@ -503,13 +503,13 @@ dialog.confirm p { font-size: 1.05rem; }
 .scene-svg .bg { fill: var(--surface-2); stroke: none; }
 .scene-svg rect, .scene-svg circle, .scene-svg path, .scene-svg ellipse { stroke: var(--sk-line); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .scene-svg .bg { stroke: none; }
-.scene-svg .body { fill: url(#g-dark); }
-.scene-svg .glass { fill: url(#g-glass); fill-opacity: .55; }
+.scene-svg .body { fill: var(--sk-body); }
+.scene-svg .glass { fill: color-mix(in srgb, var(--brand) 22%, var(--surface)); }
 .scene-svg .ground { fill: none; stroke: var(--muted); stroke-dasharray: 6 6; }
-.scene-svg .f-metal { fill: url(#g-metal); } .scene-svg .f-dark { fill: url(#g-dark); } .scene-svg .f-rubber { fill: url(#g-rubber); } .scene-svg .f-disc { fill: url(#g-disc); }
-.scene-svg .f-red { fill: url(#g-red); } .scene-svg .f-blue { fill: url(#g-blue); } .scene-svg .f-yellow { fill: url(#g-yellow); } .scene-svg .f-white { fill: url(#g-white); }
-.scene-svg .f-oil { fill: url(#g-oil); } .scene-svg .f-accent { fill: var(--accent); } .scene-svg .f-pad { fill: #8a6d4b; } .scene-svg .f-brake { fill: url(#g-tank); }
-.scene-svg .f-cool-tank { fill: url(#g-cool); } .scene-svg .f-filter { fill: url(#g-filter); } .scene-svg .f-glass { fill: rgb(160 200 230 / 45%); } .scene-svg .f-skin { fill: #d9a77f; } .scene-svg .f-amber { fill: #f39c12; }
+.scene-svg .f-metal { fill: var(--sk-metal); } .scene-svg .f-dark { fill: var(--sk-dark); } .scene-svg .f-rubber { fill: var(--sk-rubber); }
+.scene-svg .f-red { fill: #d33a2c; } .scene-svg .f-blue { fill: #2f7fd1; } .scene-svg .f-yellow { fill: #f4c430; } .scene-svg .f-white { fill: var(--surface); }
+.scene-svg .f-oil { fill: #b8860b; } .scene-svg .f-accent { fill: var(--accent); } .scene-svg .f-pad { fill: #8a6d4b; } .scene-svg .f-brake { fill: #f3e3a2; }
+.scene-svg .f-cool-tank { fill: #f7c6d9; } .scene-svg .f-filter { fill: #f1e7c8; } .scene-svg .f-glass { fill: rgb(160 200 230 / 45%); } .scene-svg .f-skin { fill: #d9a77f; } .scene-svg .f-amber { fill: #f39c12; }
 .scene-svg .thin { fill: none; stroke-width: 1.5; } .scene-svg .thick { fill: none; stroke-width: 6; } .scene-svg .wire { fill: none; stroke-width: 5; }
 .scene-svg .tube { fill: none; stroke: #7f8c9b; stroke-width: 8; } .scene-svg .cool-tube { stroke: #e48bb0; } .scene-svg .fuel-tube { stroke: #c49a3a; }
 .scene-svg .cable { fill: none; stroke-width: 7; } .scene-svg .red-cable { stroke: #d33a2c; } .scene-svg .black-cable { stroke: #111; }
@@ -526,32 +526,11 @@ dialog.confirm p { font-size: 1.05rem; }
 .scene-svg .lbl.mid { text-anchor: middle; } .scene-svg .lbl.small { font-size: 13px; } .scene-svg .lbl.big { font-size: 22px; font-weight: 800; }
 .scene-svg .lbl.inv { fill: #fff; } .scene-svg .lbl.ink { fill: #0e1726; }
 
-.scene-svg .p { filter: drop-shadow(0 3px 3px rgb(0 0 0 / 22%)); }
-.scene-svg .floor-shadow { fill: url(#g-floor); stroke: none; }
-.scene-svg .car path, .scene-svg .car rect { stroke: #0b1622; stroke-width: 1.5; }
-.scene-svg .paint { fill: url(#g-paint); }
-.scene-svg .roof { fill: none; stroke: #0b1622 !important; stroke-width: 7 !important; }
-.scene-svg .glass-side { fill: url(#g-glass); }
-.scene-svg .pillar { fill: none; stroke: #0b1622 !important; stroke-width: 9 !important; }
-.scene-svg .beltline-hl { fill: none; stroke: rgb(255 255 255 / 55%) !important; stroke-width: 2 !important; }
-.scene-svg .door-line { fill: none; stroke: rgb(5 15 25 / 55%) !important; stroke-width: 1.5 !important; }
-.scene-svg .handle { fill: #c9d3de; }
-.scene-svg .cladding { fill: #1b2129; }
-.scene-svg .arch { fill: none; stroke: #1b2129 !important; stroke-width: 9 !important; }
-.scene-svg .drl { fill: none; stroke: #eaf7ff !important; stroke-width: 4 !important; filter: drop-shadow(0 0 4px #9fd9ff) drop-shadow(0 0 8px #9fd9ff); }
-.scene-svg .taillight { fill: none; stroke: #ff3045 !important; stroke-width: 5 !important; filter: drop-shadow(0 0 5px #ff3045); }
-.scene-svg .sidewall { fill: none; stroke: #3c434c; stroke-width: 2; }
-.scene-svg .rim { fill: url(#g-rim); }
-.scene-svg .spoke { fill: none; stroke: url(#g-rim); stroke: #dfe5eb; stroke-width: 5; }
-.scene-svg .caliper-arc { fill: none; stroke: #d33a2c; stroke-width: 7; }
-.scene-svg .callout { fill: none; stroke: var(--accent); stroke-width: 3; pointer-events: none; transform-box: fill-box; transform-origin: center; animation: sk-ring 1.6s ease-out infinite; }
-@keyframes sk-ring { from { transform: scale(.85); opacity: .95; } to { transform: scale(1.35); opacity: 0; } }
-
 /* Mise en évidence et animations par étape */
 .scene-svg .p { transition: opacity .35s; transform-box: fill-box; transform-origin: center; }
-.scene-svg.has-focus [data-part]:not(.focus):not(:has(.focus)) { opacity: .42; filter: saturate(.4); }
+.scene-svg.has-focus [data-part]:not(.focus):not(:has(.focus)) { opacity: .28; }
 .scene-svg.has-focus .focus [data-part] { opacity: 1; }
-.scene-svg .focus { filter: drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 2px var(--accent)) drop-shadow(0 4px 4px rgb(0 0 0 / 30%)); }
+.scene-svg .focus { filter: drop-shadow(0 0 5px var(--accent)) drop-shadow(0 0 2px var(--accent)); }
 .scene-svg .a-ccw { animation: sk-ccw 1.8s ease-in-out infinite; } .scene-svg .a-cw { animation: sk-cw 1.8s ease-in-out infinite; }
 .scene-svg .a-spin { animation: sk-cw 2.4s linear infinite; }
 .scene-svg .a-up { animation: sk-up 1.6s ease-in-out infinite alternate; } .scene-svg .a-down { animation: sk-down 1.6s ease-in-out infinite alternate; }
@@ -566,10 +545,10 @@ dialog.confirm p { font-size: 1.05rem; }
 .scene-svg .a-drip .d1 { animation-delay: .4s; } .scene-svg .a-drip .d2 { animation-delay: .8s; }
 @keyframes sk-ccw { 0%, 15% { transform: rotate(0); } 85%, 100% { transform: rotate(-150deg); } }
 @keyframes sk-cw { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-@keyframes sk-up { from { transform: translateY(0); } to { transform: translateY(-26px); } }
-@keyframes sk-down { from { transform: translateY(0); } to { transform: translateY(26px); } }
-@keyframes sk-left { from { transform: translateX(0); } to { transform: translateX(-30px); } }
-@keyframes sk-right { from { transform: translateX(0); } to { transform: translateX(30px); } }
+@keyframes sk-up { from { transform: translateY(0); } to { transform: translateY(-16px); } }
+@keyframes sk-down { from { transform: translateY(0); } to { transform: translateY(16px); } }
+@keyframes sk-left { from { transform: translateX(0); } to { transform: translateX(-18px); } }
+@keyframes sk-right { from { transform: translateX(0); } to { transform: translateX(18px); } }
 @keyframes sk-out { 0%, 20% { transform: translate(0, 0); opacity: 1; } 80%, 100% { transform: translate(26px, -22px); opacity: .35; } }
 @keyframes sk-blink { 50% { opacity: .3; } }
 @keyframes sk-press { 50% { transform: scale(.88); } }

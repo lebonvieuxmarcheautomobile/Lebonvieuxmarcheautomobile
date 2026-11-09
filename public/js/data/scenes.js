@@ -17,70 +17,23 @@ const drops = (x, y, part = 'drops') =>
   `<g data-part="${part}" class="p">${[0, 1, 2].map((i) => `<path d="M${x} ${y + i * 18}c-4 6-6 9-6 12a6 6 0 0 0 12 0c0-3-2-6-6-12z" class="f-oil drop d${i}"/>`).join('')}</g>`;
 const label = (x, y, t, cls = '') => `<text x="${x}" y="${y}" class="lbl ${cls}">${t}</text>`;
 const arrow = (d, part) => `<path ${part ? `data-part="${part}"` : ''} d="${d}" class="p arrow" marker-end="url(#ah)"/>`;
-const wheel = (cx, cy, r, part = 'wheel') => {
-  const spokes = Array.from({ length: 10 }, (_, i) => {
-    const a = ((i * 36 + (i % 2 ? 7 : -7)) * Math.PI) / 180;
-    const x1 = (cx + Math.cos(a) * r * 0.2).toFixed(1);
-    const y1 = (cy + Math.sin(a) * r * 0.2).toFixed(1);
-    const x2 = (cx + Math.cos(a) * r * 0.68).toFixed(1);
-    const y2 = (cy + Math.sin(a) * r * 0.68).toFixed(1);
-    return `<path d="M${x1} ${y1}L${x2} ${y2}" class="spoke"/>`;
-  }).join('');
-  return `<g data-part="${part}" class="p wheel-g">
-    <circle cx="${cx}" cy="${cy}" r="${r}" class="f-rubber"/>
-    <circle cx="${cx}" cy="${cy}" r="${(r * 0.93).toFixed(1)}" class="sidewall"/>
-    <circle cx="${cx}" cy="${cy}" r="${(r * 0.72).toFixed(1)}" class="rim"/>
-    <circle cx="${cx}" cy="${cy}" r="${(r * 0.6).toFixed(1)}" class="f-disc"/>
-    <path d="M${(cx - r * 0.55).toFixed(1)} ${(cy - r * 0.25).toFixed(1)}a${(r * 0.6).toFixed(1)} ${(r * 0.6).toFixed(1)} 0 0 1 ${(r * 0.35).toFixed(1)} ${(-r * 0.4).toFixed(1)}" class="caliper-arc"/>
-    ${spokes}
-    <circle cx="${cx}" cy="${cy}" r="${(r * 0.17).toFixed(1)}" class="f-metal"/>
-    <circle cx="${cx}" cy="${cy}" r="${(r * 0.07).toFixed(1)}" class="f-dark"/>
-  </g>`;
-};
-// SUV / crossover contemporain, vue de profil, avant à gauche (style générique, aucune marque).
-const carSide = () => `
-  <ellipse data-bg cx="320" cy="302" rx="300" ry="12" class="floor-shadow"/>
-  <g data-bg class="car">
-    <path d="M34 254C28 238 30 220 44 211L118 196 212 176C234 150 264 131 302 125L452 122C502 124 548 150 578 182L602 197C612 211 613 236 606 255L566 261A57 57 0 0 0 454 263H186A57 57 0 0 0 74 263Z" class="paint"/>
-    <path d="M300 125L452 122C470 122 486 125 500 130" class="roof"/>
-    <path d="M226 184C246 160 270 144 302 140L446 138C486 140 520 158 547 186Z" class="glass-side"/>
-    <path d="M380 139L384 186" class="pillar"/>
-    <path d="M238 182c3-6 10-9 16-8l2 8z" class="f-dark"/>
-    <path d="M120 207L562 197" class="beltline-hl"/>
-    <path d="M300 188L304 252M384 188L388 252" class="door-line"/>
-    <rect x="318" y="199" width="26" height="5" rx="2.5" class="handle"/><rect x="402" y="198" width="26" height="5" rx="2.5" class="handle"/>
-    <path d="M186 250H454V263H186zM34 246C40 254 56 262 74 263L60 252zM606 248C602 256 590 260 566 261L580 250z" class="cladding"/>
-    <path d="M74 263A57 57 0 0 1 186 263M454 263A57 57 0 0 1 566 263" class="arch"/>
-    <path d="M50 209L114 198" class="drl"/>
-    <path d="M584 187L605 201" class="taillight"/>
-    <path d="M150 218h40" class="door-line"/>
-  </g>`;
+const wheel = (cx, cy, r, part = 'wheel') =>
+  `<g data-part="${part}" class="p"><circle cx="${cx}" cy="${cy}" r="${r}" class="f-rubber"/><circle cx="${cx}" cy="${cy}" r="${r * 0.62}" class="f-metal"/><circle cx="${cx}" cy="${cy}" r="${r * 0.18}" class="f-dark"/>${[0, 72, 144, 216, 288]
+    .map((a) => {
+      const rad = (a * Math.PI) / 180;
+      return `<circle cx="${(cx + Math.cos(rad) * r * 0.36).toFixed(1)}" cy="${(cy + Math.sin(rad) * r * 0.36).toFixed(1)}" r="${(r * 0.06).toFixed(1)}" class="f-dark"/>`;
+    })
+    .join('')}</g>`;
+const carSide = (x = 0, y = 0) =>
+  `<path data-bg d="M${x + 70} ${y + 210}h-30a10 10 0 0 1-10-10v-38c0-10 8-18 18-20l70-12 60-46c8-6 18-9 28-9h150c10 0 19 4 26 11l46 44 74 12c14 2 24 14 24 28v30a10 10 0 0 1-10 10h-34" class="body"/>
+   <path data-bg d="M${x + 180} ${y + 80}l-50 44h120V${y + 80}zM${x + 270} ${y + 80}v44h125l-44-44z" class="glass"/>`;
 const ground = (y = 300) => `<path data-bg d="M20 ${y}H620" class="ground"/>`;
 const battery = (x, y, w = 150, h = 90) =>
   `<g data-part="battery" class="p"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" class="f-dark"/>${label(x + w / 2, y + h / 2 + 6, '12 V', 'inv mid')}</g>
    <g data-part="neg" class="p"><rect x="${x + 18}" y="${y - 16}" width="26" height="16" rx="3" class="f-metal"/>${label(x + 31, y - 22, '−', 'big mid')}</g>
    <g data-part="pos" class="p"><rect x="${x + w - 44}" y="${y - 16}" width="26" height="16" rx="3" class="f-red"/>${label(x + w - 31, y - 22, '+', 'big mid')}</g>`;
 
-const DEFS = `<defs>
-  <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ah"/></marker>
-  <linearGradient id="g-metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef2f6"/><stop offset=".45" stop-color="#b9c4cf"/><stop offset=".55" stop-color="#9aa7b4"/><stop offset="1" stop-color="#d5dde5"/></linearGradient>
-  <linearGradient id="g-dark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5666"/><stop offset="1" stop-color="#1c2430"/></linearGradient>
-  <radialGradient id="g-rubber" cx=".5" cy=".45" r=".6"><stop offset=".6" stop-color="#2c3138"/><stop offset="1" stop-color="#0c0e11"/></radialGradient>
-  <radialGradient id="g-disc" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#9da6b0"/><stop offset="1" stop-color="#4f5863"/></radialGradient>
-  <linearGradient id="g-rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#a9b3bd"/><stop offset="1" stop-color="#5d6772"/></linearGradient>
-  <linearGradient id="g-paint" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f9db5"/><stop offset=".38" stop-color="#3f6582"/><stop offset=".42" stop-color="#9ab8cc"/><stop offset=".5" stop-color="#2e5370"/><stop offset="1" stop-color="#173246"/></linearGradient>
-  <linearGradient id="g-glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cde6"/><stop offset=".35" stop-color="#3d5a75"/><stop offset=".55" stop-color="#7fa6c4"/><stop offset="1" stop-color="#162636"/></linearGradient>
-  <radialGradient id="g-floor" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-  <linearGradient id="g-red" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6b5c"/><stop offset=".5" stop-color="#d33a2c"/><stop offset="1" stop-color="#8f1d14"/></linearGradient>
-  <linearGradient id="g-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6fb1f2"/><stop offset="1" stop-color="#1f5fa8"/></linearGradient>
-  <linearGradient id="g-yellow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#d9a400"/></linearGradient>
-  <linearGradient id="g-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6ee"/></linearGradient>
-  <linearGradient id="g-tank" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fbe9b8" stop-opacity=".95"/><stop offset=".5" stop-color="#fff8e2" stop-opacity=".8"/><stop offset="1" stop-color="#e8cf86" stop-opacity=".95"/></linearGradient>
-  <linearGradient id="g-cool" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4a9c8"/><stop offset=".5" stop-color="#fde1ec"/><stop offset="1" stop-color="#e584ab"/></linearGradient>
-  <linearGradient id="g-filter" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#efe3bd"/><stop offset=".5" stop-color="#fffaf0"/><stop offset="1" stop-color="#e2d3a4"/></linearGradient>
-  <linearGradient id="g-oil" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2a93a"/><stop offset="1" stop-color="#7a5208"/></linearGradient>
-  <radialGradient id="g-led" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff8d6"/><stop offset="1" stop-color="#f4c430"/></radialGradient>
-</defs>`;
+const DEFS = `<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>`;
 const svg = (body, title) =>
   `<svg viewBox="0 0 640 360" class="scene-svg" role="img" aria-label="${title}">${DEFS}<rect data-bg width="640" height="360" class="bg"/>${body}</svg>`;
 
@@ -104,7 +57,7 @@ export const SCENES = {
 
   plaquettes: {
     title: 'Frein à disque avant : disque, étrier, plaquettes et piston',
-    body: `<g data-part="disc" class="p"><circle cx="250" cy="190" r="130" class="f-metal"/><circle cx="250" cy="190" r="118" class="disc-ring"/><circle cx="250" cy="190" r="100" class="disc-ring"/><circle cx="250" cy="190" r="84" class="disc-ring"/><circle cx="358.0" cy="190.0" r="3.5" class="f-dark"/><circle cx="337.4" cy="253.5" r="3.5" class="f-dark"/><circle cx="283.4" cy="292.7" r="3.5" class="f-dark"/><circle cx="216.6" cy="292.7" r="3.5" class="f-dark"/><circle cx="162.6" cy="253.5" r="3.5" class="f-dark"/><circle cx="142.0" cy="190.0" r="3.5" class="f-dark"/><circle cx="162.6" cy="126.5" r="3.5" class="f-dark"/><circle cx="216.6" cy="87.3" r="3.5" class="f-dark"/><circle cx="283.4" cy="87.3" r="3.5" class="f-dark"/><circle cx="337.4" cy="126.5" r="3.5" class="f-dark"/><circle cx="250" cy="190" r="48" class="f-dark"/>${[0, 72, 144, 216, 288].map((a) => bolt((250 + Math.cos((a * Math.PI) / 180) * 30).toFixed(1), (190 + Math.sin((a * Math.PI) / 180) * 30).toFixed(1), 6)).join('')}</g>
+    body: `<g data-part="disc" class="p"><circle cx="250" cy="190" r="130" class="f-metal"/><circle cx="250" cy="190" r="118" class="disc-ring"/><circle cx="250" cy="190" r="48" class="f-dark"/>${[0, 72, 144, 216, 288].map((a) => bolt((250 + Math.cos((a * Math.PI) / 180) * 30).toFixed(1), (190 + Math.sin((a * Math.PI) / 180) * 30).toFixed(1), 6)).join('')}</g>
       <g data-part="caliper" class="p"><path d="M330 70h90a20 20 0 0 1 20 20v200a20 20 0 0 1-20 20h-90z" class="f-red"/>${label(395, 196, 'Étrier', 'inv mid')}</g>
       ${bolt(420, 92, 9, 'guides')}${bolt(420, 290, 9, 'guides')}
       <g data-part="pads" class="p"><rect x="352" y="96" width="16" height="190" rx="4" class="f-pad"/></g>
@@ -182,12 +135,12 @@ export const SCENES = {
 
   roue: {
     title: 'Changer une roue : écrous, cric et point de levage',
-    body: `${ground()}${carSide()}
+    body: `${ground()}${carSide(0, 70)}
       ${wheel(130, 280, 46, 'wheel')}${wheel(510, 280, 46, 'rear')}
       <g data-part="nuts" class="p">${[0, 72, 144, 216, 288].map((a) => bolt((130 + Math.cos((a * Math.PI) / 180) * 17).toFixed(1), (280 + Math.sin((a * Math.PI) / 180) * 17).toFixed(1), 5)).join('')}</g>
-      <g data-part="jack" class="p"><path d="M196 300l22-30h24l22 30z" class="f-accent"/><path d="M230 270v-6M214 264h32" class="thick"/></g>
-      <g data-part="jackpoint" class="p"><path d="M216 262h28" class="thick accent-stroke"/></g>
-      <g data-part="handbrake" class="p"><rect x="30" y="30" width="150" height="44" rx="10" class="f-dark"/>${label(105, 58, 'Frein à main ✓', 'inv mid small')}</g>
+      <g data-part="jack" class="p"><path d="M200 300l20-40h20l20 40z" class="f-accent"/><path d="M230 260v-14" class="thick"/></g>
+      <g data-part="jackpoint" class="p"><path d="M220 246h20" class="thick accent-stroke"/></g>
+      <g data-part="handbrake" class="p"><rect x="300" y="160" width="60" height="16" rx="6" class="f-dark"/>${label(330, 196, 'Frein à main', 'mid small')}</g>
       <g data-part="spare" class="p"><circle cx="590" cy="60" r="34" class="f-rubber"/><circle cx="590" cy="60" r="16" class="f-metal"/>${label(590, 112, 'Roue de secours', 'mid small')}</g>`,
     steps: [{ handbrake: '' }, { nuts: 'ccw' }, { jackpoint: '', jack: 'up' }, { wheel: 'left', spare: '' }, { nuts: 'cw' }, { spare: '' }],
   },
@@ -298,7 +251,7 @@ export const SCENES = {
 
   'chaines-neige': {
     title: 'Montage des chaînes sur les roues motrices',
-    body: `${ground()}${carSide()}
+    body: `${ground()}${carSide(0, 70)}
       ${wheel(130, 280, 46, 'drive')}${wheel(510, 280, 46, 'rear')}
       <g data-part="chain" class="p"><circle cx="130" cy="280" r="50" class="chain"/></g>
       <g data-part="layout" class="p"><path d="M220 330h200" class="chain"/>${label(320, 352, 'Chaîne étalée, crochets vers l’extérieur', 'mid small')}</g>
