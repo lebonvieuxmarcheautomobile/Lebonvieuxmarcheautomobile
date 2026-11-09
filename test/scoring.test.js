@@ -59,6 +59,7 @@ test('note provisoire tant que peu de points ou pas de prix', () => {
   const r = scorePurchase({ checks: { huile: 'ok' } }, today);
   assert.equal(r.provisional, true);
   assert.equal(r.qp, null);
+  assert.equal(r.verdict, 'Évaluation en cours');
   const empty = scorePurchase({}, today);
   assert.equal(empty.global, 20);
   assert.equal(empty.provisional, true);

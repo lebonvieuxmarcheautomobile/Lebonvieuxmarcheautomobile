@@ -187,6 +187,7 @@ export function scorePurchase({ vehicle = {}, histovec = {}, checks = {} } = {},
   let verdict;
   let tone;
   if (blocking.length) [verdict, tone] = ['À éviter', 'depasse'];
+  else if (completeness < 0.5) [verdict, tone] = ['Évaluation en cours', 'inconnu'];
   else if (global >= 15) [verdict, tone] = ['Bonne affaire', 'ok'];
   else if (global >= 12) [verdict, tone] = ['Achat correct', 'ok'];
   else if (global >= 9) [verdict, tone] = ['À négocier', 'bientot'];

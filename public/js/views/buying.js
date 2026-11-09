@@ -1,4 +1,5 @@
 import { html, raw, mount, $, $$, toast, ask, isEmbedded, formData } from '../lib/dom.js';
+import { icon } from '../lib/icons.js';
 import { store } from '../lib/store.js';
 import { BUYING_GUIDE } from '../data/buying-guide.js';
 import { scorePurchase, CHECK_IMPACT } from '../lib/scoring.js';
@@ -144,8 +145,8 @@ function itemView(i, checks) {
     return html`<li class="control ${v === 'ok' ? 'is-ok' : v === 'ko' ? 'is-ko' : ''}">
       <div class="control-text">${text}</div>
       <div class="verdict-btns" role="group" aria-label="Résultat du contrôle">
-        <button type="button" class="vbtn ok" data-check="${i.id}" data-val="ok" aria-pressed="${v === 'ok'}">✓ Conforme</button>
-        <button type="button" class="vbtn ko" data-check="${i.id}" data-val="ko" aria-pressed="${v === 'ko'}">✗ Défaut</button>
+        <button type="button" class="vbtn ok" data-check="${i.id}" data-val="ok" aria-pressed="${v === 'ok'}">${icon('check-circle', { size: 20 })} Conforme</button>
+        <button type="button" class="vbtn ko" data-check="${i.id}" data-val="ko" aria-pressed="${v === 'ko'}">${icon('alert', { size: 20 })} Défaut</button>
       </div>
       ${link}
     </li>`;
@@ -198,7 +199,7 @@ export function render(el) {
           const kos = section.items.filter((i) => p.checks[i.id] === 'ko').length;
           return html`<details class="card section" data-section="${section.id}" ${sDone < section.items.length ? 'open' : ''}>
             <summary>
-              <span aria-hidden="true">${section.icon}</span>
+              <span class="chip-icon">${icon(section.icon, { size: 20 })}</span>
               <strong>${section.title}</strong>
               ${kos ? html`<span class="pill depasse">${kos} défaut(s)</span>` : ''}
               <span class="muted">${sDone}/${section.items.length}</span>

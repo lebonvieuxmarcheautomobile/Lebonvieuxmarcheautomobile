@@ -1,4 +1,5 @@
 import { html, mount, $, toast, ask } from '../lib/dom.js';
+import { icon } from '../lib/icons.js';
 import { Elm327, PIDS } from '../lib/obd/elm327.js';
 import { BleTransport, SerialTransport, SimulatedTransport, capabilities } from '../lib/obd/transports.js';
 import { describeDtc } from '../data/dtc-codes.js';
@@ -149,7 +150,7 @@ export function render(el) {
       stored.length || pending.length
         ? html`${list(stored, 'Codes mémorisés')}${list(pending, 'Codes en attente (pas encore confirmés)')}
             <p class="muted small">Un code indique le circuit en défaut, pas forcément la pièce à changer. En cas de voyant orange clignotant ou de voyant rouge, arrêtez-vous.</p>`
-        : html`<p class="ok-msg">✅ Aucun code défaut moteur.</p>`,
+        : html`<p class="ok-msg">${icon('check-circle')} Aucun code défaut moteur.</p>`,
     );
   }
 
@@ -179,7 +180,7 @@ export function render(el) {
         </ul>
         ${warnings.length
           ? html`<div class="notice warn"><strong>Points d’attention</strong><ul>${warnings.map((w) => html`<li>${w}</li>`)}</ul></div>`
-          : html`<p class="ok-msg">✅ Rien d’anormal détecté par l’OBD.</p>`}
+          : html`<p class="ok-msg">${icon('check-circle')} Rien d’anormal détecté par l’OBD.</p>`}
       `,
     );
   }
