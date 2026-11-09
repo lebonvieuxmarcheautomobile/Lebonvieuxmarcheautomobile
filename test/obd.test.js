@@ -95,3 +95,11 @@ test('session complète sur le simulateur', async () => {
   assert.ok(await elm.clearDtcs());
   assert.deepEqual((await elm.readDtcs()).stored, []);
 });
+
+test('lien « Ouvrir dans Chrome » sur Android', async () => {
+  const { chromeIntentUrl } = await import('../public/js/views/diagnostic.js');
+  assert.equal(
+    chromeIntentUrl('https://exemple.fr/app/#diagnostic'),
+    'intent://exemple.fr/app/#diagnostic#Intent;scheme=https;package=com.android.chrome;end',
+  );
+});

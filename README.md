@@ -52,7 +52,7 @@ Le dossier `public/` peut aussi être hébergé seul (site statique) : la recher
 - **Plaque → véhicule** : il n'existe pas d'API publique gratuite en France. Il faut un fournisseur payant ; la clé reste côté serveur. Un adaptateur RegCheck est fourni, d'autres fournisseurs se branchent dans `server/providers.js`.
 - **Rappels** : RappelConso est interrogé par marque et modèle. La confirmation précise se fait avec le VIN auprès de la marque.
 - **Défauts connus** : base maintenue à la main dans `public/js/data/known-defects.js`, sur des problèmes largement documentés. Indicatif.
-- **OBD** : nécessite Chrome/Edge (Android, ordinateur, ChromeOS) et un adaptateur **Bluetooth LE** ou USB. Les ELM327 « Bluetooth classique » et Wi-Fi ne sont pas accessibles depuis un navigateur. Sur iPhone, il faut un navigateur compatible Web Bluetooth (ex. Bluefy).
+- **OBD** : nécessite Chrome/Edge (Android, ordinateur, ChromeOS) et un adaptateur **Bluetooth LE** ou USB. Les ELM327 « Bluetooth classique » et Wi-Fi ne sont pas accessibles depuis un navigateur. Sur Android, un bouton « Ouvrir dans Chrome » rouvre l'application dans Chrome. Sur iPhone/iPad, Apple ne permet le Bluetooth dans aucun navigateur (Chrome compris) : seul le mode démo est disponible.
 - **Carter-Cash** : pas de flux catalogue public. Les boutons ouvrent une recherche sur carter-cash.com (adresse modifiable dans les réglages). L'application n'est pas affiliée à Carter-Cash et n'affiche aucun prix.
 - **Carnet** : stocké sur l'appareil (localStorage). Pensez à exporter.
 
